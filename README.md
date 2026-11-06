@@ -16,7 +16,36 @@
 
 ## 檔案與進度相容
 
-`index.html` 是入口，`styles.css` 是樣式；`app.js` 保留課程、測驗與字典，`visuals.js` 負責圖解與模擬。SVG 由程式建立，不下載外部資產。
+採用原生 JavaScript MVC，沒有框架、建置程序或伺服器需求。SVG 由 View 建立，不下載外部資產。
+
+```text
+index.html                         頁面骨架與腳本載入順序
+styles.css                         現有版型、手機樣式及動畫
+app.js                             建立 Model / View / Controller 並啟動
+js/
+├─ data/course-data.js              課程、測驗、術語與設備說明
+├─ models/
+│  ├─ learning-model.js             進度讀寫、答案評分與術語查詢
+│  └─ simulation-model.js           水箱、輸送帶、掃描與監控狀態規則
+├─ views/
+│  ├─ learning-view.js              課程、測驗、字典的畫面
+│  └─ simulation-view.js            SVG 圖解與模擬狀態顯示
+└─ controllers/
+   ├─ learning-controller.js        學習操作事件與畫面更新
+   └─ simulation-controller.js      模擬操作、播放計時與分頁暫停
+tests/
+├─ models.cjs                       不依賴 DOM 的控制規則測試
+└─ interaction.cjs                  實際頁面互動回歸測試
+```
+
+### 維護方式
+
+- 改課程、測驗、術語：先看 `js/data/course-data.js`。
+- 改幫浦啟停、保持或掃描規則：改 `js/models/simulation-model.js`，執行 Model 測試。
+- 改文字、HTML、SVG 或狀態顯示：改對應 View；純樣式改 `styles.css`。
+- 改事件或自動播放頻率：改對應 Controller。Model 不操作 DOM 或計時器；View 不讀寫儲存、不綁定事件；Controller 協調兩者。
+- `app.js` 只做初始化。所有檔案使用同一個 `window.PLCAcademy` 命名空間，以函式作用域隔離區域變數。`index.html` 的 `defer` 腳本依列出的順序執行，無須套件載入器。
+- 儲存與時鐘透過參數傳入，控制規則可獨立測試。Model 回傳狀態副本，View 不直接更動內部狀態。
 
 進度沿用 `localStorage.plcWeeks`（0–11 的週次陣列）。同一個瀏覽器、同一個網站來源的舊進度可繼續使用。資料只留在本機；無痕視窗、清除網站資料或更換瀏覽器不會同步。資料損壞或儲存遭封鎖時仍可閱讀與操作，頁面會提示無法保留進度。
 
@@ -47,8 +76,8 @@ git diff --check
 npm test
 git diff --check
 git diff
-git add index.html styles.css app.js visuals.js README.md package.json package-lock.json .gitignore tests/interaction.cjs
-git commit -m "Enhance PLC Academy with visual lessons and interactive simulations"
+git add index.html app.js js/ README.md package.json tests/
+git commit -m "Organize PLC Academy into native JavaScript MVC"
 git push origin main
 ```
 

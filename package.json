@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "description": "繁體中文 PLC 零基礎互動教學；網站無執行期套件。",
   "scripts": {
-    "test": "node --check app.js && node --check visuals.js && node tests/interaction.cjs"
+    "test": "node tests/models.cjs && node tests/interaction.cjs"
   },
   "devDependencies": {
     "jsdom": "29.0.1"

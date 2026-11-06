@@ -26,8 +26,11 @@ function load(saved = "[0,3,11]", blocked = false) {
     return id;
   };
   w.clearInterval = (id) => timers.delete(id);
-  w.eval(fs.readFileSync(path.join(root, "app.js"), "utf8"));
-  w.eval(fs.readFileSync(path.join(root, "visuals.js"), "utf8"));
+  for (const script of w.document.querySelectorAll("script[src]")) {
+    w.eval(
+      fs.readFileSync(path.join(root, script.getAttribute("src")), "utf8"),
+    );
+  }
   return { w, d: w.document, timers };
 }
 const { w, d, timers } = load();
@@ -116,6 +119,14 @@ assert.equal(timers.size, 1);
 click("#scanReset");
 assert.equal(timers.size, 0);
 assert.equal($("#scanOutput").textContent, "0");
+click("#autoTank");
+click("#scanAuto");
+assert.equal(timers.size, 2);
+Object.defineProperty(d, "hidden", { configurable: true, value: true });
+d.dispatchEvent(new w.Event("visibilitychange"));
+assert.equal(timers.size, 0, "hidden tab pauses both automatic simulations");
+assert.equal($("#autoTank").getAttribute("aria-pressed"), "false");
+assert.equal($("#scanAuto").getAttribute("aria-pressed"), "false");
 click('[data-q="0"][data-a="0"]');
 assert.match($("#score").textContent, /1 \/ 1/);
 click('[data-q="0"][data-a="1"]');
