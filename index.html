@@ -4,27 +4,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#0f172a" />
-    <title>PLC Academy｜零基礎互動教學</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>FMCS Academy｜廠務監控與系統整合學習</title>
+    <link rel="stylesheet" href="styles.css?v=fmcs1" />
   </head>
   <body>
     <a class="skip-link" href="#main">跳至主要內容</a>
     <header>
-      <strong>⚙ PLC Academy</strong>
+      <strong>⚙ FMCS Academy</strong>
       <nav aria-label="主要導覽">
-        <a href="#hardware">設備圖解</a><a href="#roadmap">12 週課程</a
-        ><a href="#sim">互動實驗</a><a href="#quiz">測驗</a
-        ><a href="#terms">術語</a><a href="#resources">資源</a>
+        <a href="#fmcs">監控示例</a><a href="#hardware">現場圖解</a
+        ><a href="#roadmap">12 週課程</a><a href="#sim">互動實驗</a
+        ><a href="#quiz">測驗</a><a href="#terms">術語</a
+        ><a href="#resources">資源</a>
       </nav>
     </header>
     <main id="main">
       <div class="hero">
         <div class="hero-copy">
           <span class="pill">繁體中文 · 零基礎 · 免費學習</span>
-          <h1>從 PLC 小白到 FMCS 系統整合</h1>
+          <h1>從廠務設備到 FMCS 系統整合</h1>
           <p>
-            以白話講解電氣、PLC 梯形圖、感測器、設備控制、Modbus TCP、C# 與
-            SCADA。每週 6 小時，12 週建立完整觀念與模擬實作。
+            以補水系統串起現場訊號、PLC、Modbus／OPC UA、C#
+            資料採集、監控警報與資料庫。每週 6 小時，12 週建立 FMCS
+            整合觀念與文件實作。
           </p>
           <a
             class="button"
@@ -32,28 +34,28 @@
             style="display: inline-block; text-decoration: none"
             >開始學習</a
           >
-          <a class="hero-link" href="#hardware">先看懂 PLC →</a>
+          <a class="hero-link" href="#fmcs">先看監控與資料品質 →</a>
         </div>
         <div class="hero-art" aria-hidden="true">
-          <div class="rack-label">YOUR FIRST CONTROL SYSTEM</div>
+          <div class="rack-label">FACILITY MONITORING & INTEGRATION</div>
           <div class="rack">
-            <div class="module power"><i></i>24V<small>POWER</small></div>
+            <div class="module power"><i></i>I/O<small>現場訊號</small></div>
             <div class="module cpu">
-              <i></i>PLC<small>CPU / RUN</small>
+              <i></i>PLC<small>設備控制</small>
               <div class="vents"></div>
             </div>
-            <div class="module"><i></i>DI<small>輸入</small></div>
-            <div class="module"><i></i>DO<small>輸出</small></div>
+            <div class="module"><i></i>DATA<small>資料採集</small></div>
+            <div class="module"><i></i>FMCS<small>監控整合</small></div>
           </div>
           <div class="hero-flow">
-            <span>感測器</span><b>→</b><span>判斷</span><b>→</b
-            ><span>設備動作</span>
+            <span>感測器</span><b>→</b><span>資料交換</span><b>→</b
+            ><span>監控與歷史</span>
           </div>
-          <p>看懂訊號，讓控制邏輯動起來。</p>
+          <p>看懂設備，串起資料、警報與維運。</p>
         </div>
       </div>
       <section class="progress-card">
-        <h2>學習進度</h2>
+        <h2>FMCS 課程進度</h2>
         <p id="progressLabel">0 / 12 週完成</p>
         <progress
           aria-label="12 週學習進度"
@@ -64,22 +66,23 @@
         <p class="muted" id="storageNote">
           完成狀態儲存在目前瀏覽器，不會上傳伺服器。
         </p>
+        <p class="muted" id="legacyProgress"></p>
       </section>
       <section id="roadmap">
         <p class="eyebrow">LEARNING PATH</p>
-        <h2>12 週，從訊號走到系統</h2>
+        <h2>12 週，從廠務設備走到整合驗收</h2>
         <p class="muted">
           每週 6 小時：理解觀念 → 看圖操作 → 完成練習。展開任一週開始。
         </p>
         <div class="path-stages">
-          <span>01–04 基礎控制</span><span>05–08 設備邏輯</span
-          ><span>09–12 系統整合</span>
+          <span>01–04 廠務與現場</span><span>05–08 通訊與採集</span
+          ><span>09–12 監控與交付</span>
         </div>
         <div id="lessons"></div>
       </section>
       <section id="sim">
         <p class="eyebrow">LEARN BY DOING</p>
-        <h2>互動實驗室</h2>
+        <h2>FMCS 現場與監控實驗室</h2>
         <p class="muted">
           先預測結果，再操作按鈕。亮色路徑表示邏輯成立，狀態文字同步更新。
         </p>
@@ -131,18 +134,18 @@
         </p>
       </section>
       <section id="quiz">
-        <h2>PLC 基礎測驗</h2>
+        <h2>FMCS 系統整合測驗</h2>
         <p>作答後即時顯示解釋，重新整理可重新練習。</p>
         <div id="questions"></div>
         <p id="score" aria-live="polite"></p>
       </section>
       <section id="terms">
-        <h2>工業自動化術語字典</h2>
+        <h2>FMCS 整合術語字典</h2>
         <label for="search">輸入中英文術語</label
         ><input
           type="search"
           id="search"
-          placeholder="搜尋 PLC、DI、Modbus、SCADA..."
+          placeholder="搜尋 Tag、Quality、Modbus、警報..."
           style="
             width: 100%;
             padding: 12px;
@@ -155,18 +158,21 @@
         <div id="dictionary" class="grid" style="margin-top: 15px"></div>
       </section>
       <section id="resources">
-        <h2>官方學習資源</h2>
+        <h2>FMCS 整合官方學習資源</h2>
         <div class="grid">
           <div class="card">
-            <h3>OpenPLC</h3>
+            <h3>PLC 基礎延伸｜OpenPLC</h3>
             <a href="https://autonomylogic.com/" target="_blank" rel="noopener"
               >PLC 模擬與開源平台</a
             >
           </div>
           <div class="card">
             <h3>Modbus</h3>
-            <a href="https://www.modbus.org/" target="_blank" rel="noopener"
-              >通訊協定官方組織</a
+            <a
+              href="https://www.modbus.org/modbus-specifications"
+              target="_blank"
+              rel="noopener"
+              >Modbus TCP／RTU 官方規格入口</a
             >
           </div>
           <div class="card">
@@ -180,8 +186,20 @@
           </div>
           <div class="card">
             <h3>OPC Foundation</h3>
-            <a href="https://opcfoundation.org/" target="_blank" rel="noopener"
-              >OPC UA 工業資料互通</a
+            <a
+              href="https://reference.opcfoundation.org/specs/OPC-10000-4/7.11"
+              target="_blank"
+              rel="noopener"
+              >OPC UA 資料值、品質與時間戳記</a
+            >
+          </div>
+          <div class="card">
+            <h3>SQL Server</h3>
+            <a
+              href="https://learn.microsoft.com/en-us/sql/t-sql/data-types/datetime2-transact-sql"
+              target="_blank"
+              rel="noopener"
+              >歷史資料時間欄位｜datetime2</a
             >
           </div>
         </div>
@@ -193,14 +211,17 @@
         以顯示課程、測驗及互動實驗。學習進度只保存在本機瀏覽器。
       </p></noscript
     >
-    <footer>PLC Academy · 自主學習專案 · 非設備安全認證課程</footer>
-    <script src="js/data/course-data.js" defer></script>
-    <script src="js/models/learning-model.js" defer></script>
-    <script src="js/models/simulation-model.js" defer></script>
-    <script src="js/views/learning-view.js" defer></script>
-    <script src="js/views/simulation-view.js" defer></script>
-    <script src="js/controllers/learning-controller.js" defer></script>
-    <script src="js/controllers/simulation-controller.js" defer></script>
-    <script src="js/main.js" defer></script>
+    <footer>FMCS Academy · 自主學習專案 · 非設備安全認證課程</footer>
+    <script src="js/data/course-data.js?v=fmcs1" defer></script>
+    <script src="js/models/learning-model.js?v=fmcs1" defer></script>
+    <script src="js/models/simulation-model.js?v=fmcs1" defer></script>
+    <script src="js/views/learning-view.js?v=fmcs1" defer></script>
+    <script src="js/views/simulation-view.js?v=fmcs1" defer></script>
+    <script src="js/controllers/learning-controller.js?v=fmcs1" defer></script>
+    <script
+      src="js/controllers/simulation-controller.js?v=fmcs1"
+      defer
+    ></script>
+    <script src="js/main.js?v=fmcs1" defer></script>
   </body>
 </html>

@@ -3,11 +3,11 @@ const fs = require("node:fs");
 const path = require("node:path");
 const assert = require("node:assert/strict");
 const root = path.resolve(__dirname, "..");
-function load(saved = "[0,3,11]", blocked = false) {
+function load(saved = "[0,3,11]", blocked = false, legacy = "[0,5]") {
   const dom = new JSDOM(
     fs.readFileSync(path.join(root, "index.html"), "utf8"),
     {
-      url: "https://chermanyen.github.io/plc-academy/",
+      url: "https://chermanyen.github.io/fmcs-academy/",
       runScripts: "outside-only",
     },
   );
@@ -18,7 +18,10 @@ function load(saved = "[0,3,11]", blocked = false) {
         throw Error("blocked");
       },
     });
-  else w.localStorage.setItem("plcWeeks", saved);
+  else {
+    if (saved !== null) w.localStorage.setItem("fmcsWeeksV1", saved);
+    w.localStorage.setItem("plcWeeks", legacy);
+  }
   let timers = new Map(),
     id = 0;
   w.setInterval = (fn) => {
@@ -28,7 +31,10 @@ function load(saved = "[0,3,11]", blocked = false) {
   w.clearInterval = (id) => timers.delete(id);
   for (const script of w.document.querySelectorAll("script[src]")) {
     w.eval(
-      fs.readFileSync(path.join(root, script.getAttribute("src")), "utf8"),
+      fs.readFileSync(
+        path.join(root, script.getAttribute("src").split("?")[0]),
+        "utf8",
+      ),
     );
   }
   return { w, d: w.document, timers };
@@ -43,10 +49,20 @@ const detail = $("#lessons details");
 detail.open = true;
 click('[data-week="1"]');
 assert.equal(detail.open, true);
-assert.deepEqual(JSON.parse(w.localStorage.getItem("plcWeeks")), [0, 3, 11, 1]);
+assert.deepEqual(
+  JSON.parse(w.localStorage.getItem("fmcsWeeksV1")),
+  [0, 3, 11, 1],
+);
+assert.equal(
+  w.localStorage.getItem("plcWeeks"),
+  "[0,5]",
+  "legacy progress stays unchanged",
+);
+assert.match($("#legacyProgress").textContent, /2 \/ 12/);
 assert.equal(d.querySelectorAll(".lesson-visual").length, 12);
 assert.equal(
-  load(w.localStorage.getItem("plcWeeks")).d.querySelector("#progress").value,
+  load(w.localStorage.getItem("fmcsWeeksV1")).d.querySelector("#progress")
+    .value,
   4,
 );
 click("#lampBtn");
@@ -138,6 +154,17 @@ $("#search").value = "not-found";
 $("#search").dispatchEvent(new w.Event("input"));
 assert.match($("#dictionary").textContent, /找不到/);
 assert.equal(load("broken").d.querySelectorAll(".lesson-visual").length, 12);
+const legacyOnly = load(null);
+assert.equal(
+  legacyOnly.d.querySelector("#progress").value,
+  0,
+  "PLC completion must not count as FMCS completion",
+);
+assert.match(
+  legacyOnly.d.querySelector("#legacyProgress").textContent,
+  /2 \/ 12/,
+);
+assert.equal(legacyOnly.w.localStorage.getItem("plcWeeks"), "[0,5]");
 assert.equal(load('[0,0,99,"1",2]').d.querySelector("#progress").value, 2);
 assert.equal(
   load("[]", true).d.querySelectorAll("#questions .quiz-item").length,

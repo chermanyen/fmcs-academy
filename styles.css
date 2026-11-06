@@ -190,6 +190,17 @@ footer {
   border-top: 1px solid #334155;
 }
 @media (max-width: 600px) {
+  .hero-art .module,
+  .hero-art .module.cpu {
+    min-width: 0;
+    flex: 1;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 0.85rem;
+  }
+  .rack-label {
+    overflow-wrap: anywhere;
+  }
   header {
     position: static;
     display: block;
@@ -207,6 +218,9 @@ footer {
 }
 
 /* Visual teaching layer: retain the original dark teal identity. */
+.hero > div {
+  min-width: 0;
+}
 :root {
   --accent: #5eead4;
   --line: #38516c;

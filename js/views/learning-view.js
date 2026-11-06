@@ -17,7 +17,7 @@
           )
           .join("");
       },
-      renderProgress({ completed, storageAvailable }) {
+      renderProgress({ completed, legacyCompleted, storageAvailable }) {
         document.querySelectorAll("[data-week]").forEach((el) => {
           const i = Number(el.dataset.week),
             checked = completed.includes(i);
@@ -27,6 +27,9 @@
         });
         $("#progress").value = completed.length;
         $("#progressLabel").textContent = `${completed.length} / 12 週完成`;
+        $("#legacyProgress").textContent = legacyCompleted.length
+          ? `舊版 PLC 課程：${legacyCompleted.length} / 12 週完成，已保留在本瀏覽器，不計入本版 FMCS 進度。`
+          : "FMCS 使用獨立進度；若本瀏覽器有舊版 PLC 進度，原資料會保留。";
         $("#storageNote").textContent = storageAvailable
           ? "完成狀態儲存在目前瀏覽器，不會上傳伺服器。"
           : "瀏覽器目前無法讀取或儲存進度；本次仍可學習，關閉後可能無法保留。";
@@ -53,4 +56,4 @@
       },
     };
   };
-})((window.PLCAcademy = window.PLCAcademy || {}));
+})((window.FMCSAcademy = window.FMCSAcademy || {}));

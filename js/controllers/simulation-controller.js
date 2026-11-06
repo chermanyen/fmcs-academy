@@ -86,4 +86,4 @@
       },
     };
   };
-})((window.PLCAcademy = window.PLCAcademy || {}));
+})((window.FMCSAcademy = window.FMCSAcademy || {}));

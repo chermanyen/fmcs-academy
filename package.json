@@ -1,8 +1,8 @@
 {
-  "name": "plc-academy",
+  "name": "fmcs-academy",
   "private": true,
   "version": "1.1.0",
-  "description": "繁體中文 PLC 零基礎互動教學；網站無執行期套件。",
+  "description": "繁體中文 FMCS 廠務監控與系統整合學習；網站無執行期套件。",
   "scripts": {
     "test": "node tests/models.cjs && node tests/interaction.cjs"
   },

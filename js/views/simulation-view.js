@@ -10,85 +10,82 @@
       mount() {
         const hardware = document.createElement("section");
         hardware.id = "hardware";
-        hardware.innerHTML = `<p class="eyebrow">MEET THE HARDWARE</p><h2>PLC 是設備的控制大腦</h2><p class="muted">從左向右看：感測器提供訊號，PLC 判斷條件，再讓輸出設備動作。點選模組查看說明。</p>
+        hardware.innerHTML = `<p class="eyebrow">MEET THE HARDWARE</p><h2>FMCS 的現場基礎：感測器與 PLC</h2><p class="muted">從左向右看：感測器提供訊號，PLC 判斷條件，再讓輸出設備動作。點選模組查看說明。</p>
 <div class="hardware-board"><div class="field-device">${svg("感測器偵測工件", '<rect x="30" y="50" width="60" height="70" rx="8" class="diagram-box"/><circle cx="60" cy="75" r="10" class="signal-dot"/><path d="M90 85h40m-10-12 12 12-12 12" class="wire"/><rect x="145" y="50" width="45" height="70" rx="4" class="part"/>', "0 0 220 160")}<strong>感測器／按鈕</strong><small>現場輸入訊號</small></div><b class="board-arrow">→</b><div class="hardware-modules">
 <button data-module="power" aria-pressed="false"><span class="led"></span><b>24V</b><small>電源</small></button><button data-module="di" aria-pressed="true"><span class="led"></span><b>DI</b><small>數位輸入</small></button><button data-module="cpu" aria-pressed="false"><span class="led"></span><b>CPU</b><small>邏輯運算</small></button><button data-module="do" aria-pressed="false"><span class="led"></span><b>DO</b><small>數位輸出</small></button></div><b class="board-arrow">→</b><div class="field-device">${svg("輸出控制指示燈與馬達", '<circle cx="75" cy="70" r="32" class="signal-dot"/><path d="M55 100h40v20H55z" class="wire"/><circle cx="160" cy="83" r="30" class="diagram-box"/><text x="160" y="90" text-anchor="middle">M</text>', "0 0 220 160")}<strong>指示燈／繼電器</strong><small>現場輸出設備</small></div></div>
 <div class="module-detail" id="moduleDetail" aria-live="polite"></div><p class="muted">這是功能示意，非接線圖。DO 通常透過適當的繼電器／接觸器驅動大功率設備；電源與接線以設備手冊為準。</p>`;
         $("#roadmap").before(hardware);
         const lessonVisuals = [
           [
-            "訊號走一趟",
-            flow(["按鈕 → DI", "CPU 判斷", "DO → 指示燈"]),
-            "按鈕是輸入；燈是輸出。PLC 把條件轉換成動作。",
+            "FMCS 的五層資料路徑",
+            flow(["現場設備", "PLC", "採集服務", "FMCS／資料庫"]),
+            "先分清控制、採集與監控各層的責任。",
+            "#fmcs",
+          ],
+          [
+            "從系統找出監控對象",
+            flow(["電力／空調", "給排水／氣體", "設備與量測點"]),
+            "以補水水箱為例，先辨認設備、量測與運轉回饋。",
+            "#tankLab",
+          ],
+          [
+            "從 I/O 走到 Tag",
+            flow(["感測器", "DI／AI 輸入", "DO／AO 輸出"]),
+            "量測、命令與回饋要分開，並標註型別與工程單位。",
             "#hardware",
           ],
           [
-            "把元件分成輸入與輸出",
-            `<div class="io-pair"><div><b>DI 數位輸入</b><p>◉ 按鈕<br>◈ 近接感測器<br>▥ 液位開關</p></div><div><b>DO 數位輸出</b><p>☀ 指示燈<br>⚙ 繼電器線圈<br>◧ 電磁閥</p></div></div>`,
-            "DI 接收狀態，DO 發出命令；類比訊號則表示連續數值。",
-            "#hardware",
-          ],
-          [
-            "串聯 AND：兩個條件都要成立",
-            svg(
-              "A 與 B 串聯控制 Y：A AND B",
-              '<path d="M20 30v100M460 30v100M20 80H100M100 57v46M125 57v46M125 80H220M220 57v46M245 57v46M245 80H350M395 80H460M370 58a22 22 0 0 0 0 44M375 58a22 22 0 0 1 0 44" class="wire"/><text x="112" y="35" text-anchor="middle">A</text><text x="232" y="35" text-anchor="middle">B</text><text x="372" y="35" text-anchor="middle">Y</text>',
-            ),
-            "A=1 且 B=1 時，Y 才等於 1。接點符號是邏輯指令。",
-            "#lampLab",
-          ],
-          [
-            "自保持：用輸出狀態記住 Start",
-            flow(["Start 瞬間啟動", "Run 保持", "Stop／到位解除"]),
-            "本實驗到位會清除運轉保持；感測器解除不會自動再啟動。",
-            "#motorLab",
-          ],
-          [
-            "TON 延時接通",
-            `<div class="time-track"><span>IN = 1</span><div><i></i></div><span>5 秒 → Q = 1</span></div>`,
-            "TON：輸入持續成立到預置時間才完成；未達時間就解除，計時歸零。下圖只示意時間累積。",
+            "控制在 PLC，監控在 FMCS",
+            flow(["讀取輸入", "執行邏輯", "更新輸出"]),
+            "操作掃描模型，再用水箱觀察上下限與保持狀態。",
             "#scan",
           ],
           [
-            "4–20mA 對應 0–100%",
-            `<div class="scale-bar"><span>4mA<br>0%</span><span>12mA<br>50%</span><span>20mA<br>100%</span></div>`,
-            "液位% = (電流 − 4) ÷ 16 × 100。低於量測範圍需判斷品質，不應直接當成正常零值。",
+            "先對照點表，再讀取資料",
+            flow(["Client 請求", "設備位址／型別", "Server 回應"]),
+            "TCP 與 RTU 的連線設定不同，資料映射仍需逐點核對。",
+            "#fmcs",
+          ],
+          [
+            "資料交換包含品質與時間",
+            flow(["Endpoint／NodeId", "讀取或訂閱", "Value＋Quality＋Time"]),
+            "這是流程圖；網站沒有實際 OPC UA 連線。",
+            "#fmcs",
+          ],
+          [
+            "失聯時保留最後值，標示過期",
+            flow(["Tag 定義", "值與單位", "時間與品質"]),
+            "試按「模擬通訊中斷」，再調整水箱，比較監控最後值與現場值。",
+            "#fmcs",
+          ],
+          [
+            "採集服務的處理順序",
+            flow(["讀取", "檢查／逾時", "紀錄／有限重試"]),
+            "C# 採集服務屬課外實作，本網站僅模擬資料品質。",
+            "#fmcs",
+          ],
+          [
+            "讓操作員看懂設備",
+            flow(["數值與單位", "運轉與模式", "警報與品質"]),
+            "用水箱監控示例練習分辨控制狀態與通訊狀態。",
+            "#fmcs",
+          ],
+          [
+            "警報確認不等於恢復",
+            flow(["發生", "確認／處理", "條件恢復"]),
+            "水箱可顯示超高警報；確認流程與歷史趨勢請以文件練習。",
             "#tankLab",
           ],
           [
-            "兩個門檻，避免頻繁啟停",
-            flow(["低於 30% 啟動", "30–80% 保持", "達 80% 停止"]),
-            "先調到 20%，再調到 50%；與先調到 90% 再回 50% 比較。相同液位可有不同幫浦狀態。",
-            "#tankLab",
+            "資料落地前先定義欄位",
+            flow(["TagId／Value", "Quality／時間", "資料庫／報表"]),
+            "先規劃時間基準與保存策略；網站不連接資料庫。",
+            "#resources",
           ],
           [
-            "用狀態描述設備流程",
-            flow(["Idle 待機", "Running 運轉", "Fault 故障", "Reset 復歸"]),
-            "Fault 的復歸必須先滿足故障解除條件。按 Reset 不代表故障原因已消失。",
-            "#fmcs",
-          ],
-          [
-            "Modbus TCP：請求與回應",
-            flow(["Client 請求", "TCP / 502", "Server 回應"]),
-            "Coil 是位元；Holding Register 是 16 位元。讀取前確認位址基準與資料型別。",
-            "#fmcs",
-          ],
-          [
-            "C# 讀取時，也要記錄資料品質",
-            flow(["輪詢讀取", "檢查結果／逾時", "數值＋時間＋品質"]),
-            "失聯時保留最後值並標示過期，或依設計顯示無效；不要把最後值當成即時值。",
-            "#fmcs",
-          ],
-          [
-            "從現場到監控",
-            flow(["感測器", "PLC 控制", "SCADA / FMCS", "歷史資料庫"]),
-            "監控畫面顯示設備狀態，PLC 負責底層控制；通訊品質和警報要能區分。",
-            "#fmcs",
-          ],
-          [
-            "以情境驗收整合成果",
-            `<div class="acceptance"><span>✓ 正常啟停</span><span>✓ 上下限</span><span>✓ 失聯</span><span>✓ 故障與復歸</span></div>`,
-            "保留 I/O List、Tag List、測試紀錄與備份，讓下一位維護者能重現結果。",
+            "把整合成果交付給維護者",
+            flow(["架構與點表", "正常／異常測試", "備份與 SOP"]),
+            "驗收涵蓋失聯、恢復、警報、權限與復原情境。",
             "#sim",
           ],
         ];
@@ -121,8 +118,8 @@
         $("#sim").after(scan);
         const fmcs = document.createElement("section");
         fmcs.id = "fmcs";
-        fmcs.innerHTML = `<p class="eyebrow">FROM CONTROL TO MONITORING</p><h2>把控制狀態帶到 FMCS</h2><p class="muted">此畫面連動上方水箱模擬，示意 Tag、警報與資料品質；沒有連接真實 PLC 或網路服務。</p>${flow(["液位感測器", "PLC", "Modbus / OPC UA", "C# / FMCS"])}<div class="monitor"><div><small>LT-001 · 液位</small><strong id="fmcsLevel">50%</strong></div><div><small>P-001 · 補水幫浦</small><strong id="fmcsPump">OFF</strong></div><div><small>QUALITY · 資料品質</small><strong id="fmcsQuality">Good（模擬）</strong></div></div><div class="controls"><button class="button secondary" id="disconnect" aria-pressed="false">模擬通訊中斷</button><a href="#tankLab">回到水箱調整液位 →</a></div><p id="fmcsNote" aria-live="polite">資料連線正常（瀏覽器內部模擬）。</p>`;
-        scan.after(fmcs);
+        fmcs.innerHTML = `<p class="eyebrow">FROM CONTROL TO MONITORING</p><h2>FMCS 監控與資料品質示例</h2><p class="muted">此畫面連動上方水箱模擬，示意 Tag、警報與資料品質；沒有連接真實 PLC 或網路服務。</p>${flow(["液位感測器", "PLC", "Modbus / OPC UA", "C# / FMCS"])}<div class="monitor"><div><small>LT-001 · 液位</small><strong id="fmcsLevel">50%</strong></div><div><small>P-001 · 補水幫浦</small><strong id="fmcsPump">OFF</strong></div><div><small>QUALITY · 資料品質</small><strong id="fmcsQuality">Good（模擬）</strong></div></div><div class="controls"><button class="button secondary" id="disconnect" aria-pressed="false">模擬通訊中斷</button><a href="#tankLab">回到水箱調整液位 →</a></div><p id="fmcsNote" aria-live="polite">資料連線正常（瀏覽器內部模擬）。</p>`;
+        $("#hardware").before(fmcs);
       },
       renderModule(key) {
         const copy = app.courseData.moduleCopy[key];
@@ -234,4 +231,4 @@
       },
     };
   };
-})((window.PLCAcademy = window.PLCAcademy || {}));
+})((window.FMCSAcademy = window.FMCSAcademy || {}));

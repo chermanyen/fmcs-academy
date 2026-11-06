@@ -13,4 +13,4 @@
   app
     .createSimulationController(simulationModel, simulationView, window)
     .start();
-})(window.PLCAcademy);
+})(window.FMCSAcademy);

@@ -15,7 +15,7 @@ for (const name of [
     context,
   );
 }
-const app = context.window.PLCAcademy;
+const app = context.window.FMCSAcademy;
 const model = app.createSimulationModel();
 model.startMotor();
 model.setSensor(true);
@@ -67,15 +67,16 @@ assert.equal(
 );
 let stored = '[0,0,11,99,"3"]';
 const learning = app.createLearningModel(app.courseData, () => ({
-  getItem() {
-    return stored;
+  getItem(key) {
+    return key === "fmcsWeeksV1" ? stored : "[0,1,2]";
   },
   setItem(key, value) {
-    assert.equal(key, "plcWeeks");
+    assert.equal(key, "fmcsWeeksV1");
     stored = value;
   },
 }));
 assert.equal(learning.progress().completed.length, 2);
+assert.equal(learning.progress().legacyCompleted.length, 3);
 learning.completeWeek(3, true);
 learning.completeWeek(99, true);
 assert.deepEqual(JSON.parse(stored), [0, 11, 3]);
