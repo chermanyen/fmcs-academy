@@ -36,7 +36,7 @@
    View.show('reader');
    $('reader-title').textContent=c.title; $('reader-level').textContent=c.level+' · '+c.duration;
    const url=c.path+(anchor?'#'+encodeURIComponent(anchor):'');
-   $('standalone').href=url;
+   $('standalone').href=url;document.getElementById('lesson-study-link').href='study.html?course='+c.id+(anchor?'#'+encodeURIComponent(anchor):'');
    if (Model.framePath!==url) {$('frame-status').hidden=false; $('lesson-frame').src=url; Model.framePath=url;}
    $('lesson-frame').title=c.title+'：課程內容';
    const i=Model.courses.indexOf(c);

@@ -2,9 +2,9 @@
   "name": "fmcs-academy",
   "private": true,
   "version": "2.0.0",
-  "description": "FMCS 與 AVEVA 整合學習中心；靜態 MVC、七個單元與跨教材搜尋。",
+  "description": "FMCS 與 AVEVA 整合學習中心；八個單元、逐課圖文與概念測驗。",
   "scripts": {
-    "test": "node tests/models.cjs && node tests/interaction.cjs && node tests/portal.cjs"
+    "test": "node tests/models.cjs && node tests/interaction.cjs && node tests/portal.cjs && node tests/lesson-kits.cjs"
   },
   "devDependencies": {
     "jsdom": "29.0.1"
