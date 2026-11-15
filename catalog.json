@@ -72,10 +72,166 @@
     "source": "fmcs-academy"
   },
   {
+    "id": "platform",
+    "title": "System Platform 操作",
+    "description": "Galaxy、模板、PLC、InTouch、警報與維運的九堂圖文課。",
+    "level": "基礎",
+    "duration": "9 堂課",
+    "path": "courses/platform/index.html",
+    "sections": [
+      {
+        "title": "認識 FMCS 與學習環境",
+        "anchor": "start"
+      },
+      {
+        "title": "Galaxy、IDE 與部署架構",
+        "anchor": "galaxy"
+      },
+      {
+        "title": "建立 AHU_Template 與 AHU_001",
+        "anchor": "template"
+      },
+      {
+        "title": "建立單一 PLC 連線",
+        "anchor": "plc"
+      },
+      {
+        "title": "雙 Driver 備援",
+        "anchor": "redundancy"
+      },
+      {
+        "title": "自動重連與日誌",
+        "anchor": "script"
+      },
+      {
+        "title": "InTouch 狀態面板",
+        "anchor": "intouch"
+      },
+      {
+        "title": "Alarm、Trend 與 History",
+        "anchor": "alarm"
+      },
+      {
+        "title": "故障排除與交接",
+        "anchor": "trouble"
+      }
+    ],
+    "search": "宇辰 FMCS 學習中心    ☰   Y  宇辰  FMCS ACADEMY   ⌕     A−  19px  A＋   ◐  官方文件 ↗     學習路徑 / LEARNING PATH  System Platform 入門  2023 R2 SP1 P03            實作環境  Windows Server 2022  SQL Server · AVEVA  僅於測試 Galaxy 操作   ↓ ASP.NET Core MVC 原始碼      本頁內容  概念說明  本課圖解與示意  逐步操作  互動練習  知識檢查  故障排除  學會一個概念， 驗證一個結果。 每次操作後，記錄數值、品質與日誌。       圖解  另開原圖 ↗  關閉 ✕   可左右／上下捲動查看細節；按 Esc 關閉。 [{\"id\": \"start\", \"group\": \"學習起點\", \"title\": \"認識 FMCS 與學習環境\", \"subtitle\": \"將 IT 經驗，轉成廠務監控能力。\", \"intro\": \"FMCS 是廠務監控系統，將空調、電力、用水等設備資料集中顯示、告警與追蹤。你熟悉的資料庫、服務與網路，都是排錯的重要基礎。\", \"steps\": [\"確認測試主機為 Windows Server 2022，記錄 System Platform 2023 R2 SP1 P03 與 SQL Server 版本。\", \"在獨立測試環境操作，先備份 Galaxy；記錄主機名稱、授權及登入權限。\", \"開啟 System Platform IDE，確認可連接測試 Galaxy。\", \"開啟 OCMC，找到 Log Viewer；確認 AVEVA Agent (Watchdog) 服務狀態。\"], \"tip\": \"Galaxy 像專案資料庫；IDE 像 Visual Studio；AppEngine 像執行物件邏輯的服務。\", \"trouble\": \"開始前無法連線？先記錄完整錯誤，再檢查 SQL 服務、主機解析、權限與 AVEVA 日誌。\", \"question\": \"哪個工具用來編輯 Galaxy 物件？\", \"options\": [\"System Platform IDE\", \"SQL Server Profiler\", \"IIS Manager\"], \"answer\": 0, \"minutes\": 15}, {\"id\": \"galaxy\", \"group\": \"平台基礎\", \"title\": \"Galaxy、IDE 與部署架構\", \"subtitle\": \"先看懂專案，再開始建立物件。\", \"intro\": \"Galaxy 保存應用物件及設定，底層使用 SQL Server。WinPlatform 對應執行節點；AppEngine 承載物件執行；Area 用於組織設備與區域。\", \"steps\": [\"啟動 IDE，選擇測試 Galaxy 並開啟。\", \"切換 Model、Deployment、Derivation 視圖，比較設備結構、部署位置與繼承關係。\", \"在測試 Galaxy 找出 WinPlatform、AppEngine 與 Area。\", \"記錄每個物件的 Host 與部署狀態，不要直接修改正式環境。\"], \"tip\": \"Check-in 是將編輯提交回 Galaxy；Deploy 是將設定送至執行環境，兩者不同。\", \"trouble\": \"找不到基底模板？檢查建立 Galaxy 時使用的 CAB；Blank 與 Default Galaxy 所含內容不同。\", \"question\": \"哪個動作讓設定進入執行環境？\", \"options\": [\"Check-in\", \"Deploy\", \"搜尋\"], \"answer\": 1, \"minutes\": 25}, {\"id\": \"template\", \"group\": \"物件與屬性\", \"title\": \"建立 AHU_Template 與 AHU_001\", \"subtitle\": \"用一份模板，維護一群空調設備。\", \"intro\": \"AHU 是空氣處理機。Template 可類比 C# 類別，Instance 類比實體，Attribute 類比屬性。此 AHU 命名與欄位為教學設計，須由宇辰專案負責人確認正式規範。\", \"steps\": [\"從 $UserDefined 衍生模板，使用 IDE 允許的名稱 AHU_Template（模板可能以 $ 顯示）。\", \"新增 SupplyTemp（Float）、RunStatus（Boolean）、Alarm（Boolean）。\", \"SupplyTemp 設工程單位 °C；此階段只做測試值，不連現場 I/O。\", \"Save、Check-in，從模板建立 AHU_001，指派測試 Area 與 AppEngine。\", \"Deploy 後用 Object Viewer 觀察 AHU_001.SupplyTemp；修改模板前先評估衍生物件影響。\"], \"tip\": \"AHU_001.SupplyTemp 是物件名稱加屬性名稱，類似物件的屬性存取。\", \"trouble\": \"無法編輯？檢查是否已 Check-out、權限是否足夠、屬性是否由模板鎖定。\", \"question\": \"同類設備應共用什麼以利維護？\", \"options\": [\"各自獨立腳本\", \"同一模板\", \"相同 IP\"], \"answer\": 1, \"minutes\": 40}, {\"id\": \"plc\", \"group\": \"PLC 通訊\", \"title\": \"建立單一 PLC 連線\", \"subtitle\": \"從一筆暫存器，追到一個畫面數值。\", \"intro\": \"依內部教材建立 ModRSsim2 → OI.MBTCP.1 → DDESuiteLinkClient → Temperature001.PV 的測試鏈路。\", \"steps\": [\"啟動 ModRSsim2，選 MODBUS TCP/IP、port 502；Holding Register 400001 設 2048。\", \"OCMC → OI Server Manager → Modicon - MBTCP → OI.MBTCP.1，設定 TCPIP_PORT 與模擬器位址。\", \"新增 Device Group Topic2，Update Interval 1000 ms；Device Item Temperature001.PV 對應 400001。\", \"由 $DDESuiteLinkClient 建立測試 Client，Server node 127.0.0.1、Server name MBTCP、Protocol SuiteLink；新增 Topic2。\", \"建立 $UserDefined 實例 Temperature001，新增 Float 屬性 PV 並啟用 I/O。\", \"IO Devices 視圖將物件連到 Client 的 Topic2；Check-in，先部署 Client，再部署 Temperature001。\", \"Object Viewer 檢查 PV = 2048、Quality = C0:Good；改模擬值，再觀察是否同步。\"], \"tip\": \"127.0.0.1 只適用本機測試；Device Group 與 Topic 名稱必須相符。400001 的地址表示法須依 Driver 驗證。\", \"trouble\": \"Quality = Bad：依序檢查模擬器、port、Driver Activate、Topic2、Item Reference 與日誌。\", \"question\": \"OCMC Device Group 應與哪個名稱相同？\", \"options\": [\"Galaxy Topic\", \"Windows 帳號\", \"Graphic 名稱\"], \"answer\": 0, \"minutes\": 45}, {\"id\": \"redundancy\", \"group\": \"PLC 通訊\", \"title\": \"雙 Driver 備援\", \"subtitle\": \"分清楚「已連線」與「正在使用」。\", \"intro\": \"內部範例透過兩個 OI Server instance 與 RedundantDIObject 切換資料來源。同機雙 Driver 是通訊路徑練習，不能代表整台主機故障時仍可運作。\", \"steps\": [\"建立 OI.MBTCP_Back.1，複製 port、Topic2 與 Device Item 設定並 Activate。\", \"建立 DDESuiteLinkClient_002_P 與 _002_B；Server name 分別 MBTCP 與 MBTCP_Back。\", \"建立 RedundantDIObject_001，Primary／Backup DI source 指向上述完整實例名稱。\", \"Scan Group → Copy Common Scan Groups，選 Topic2；先部署兩個 Client，再部署備援物件。\", \"Undeploy Temperature001，重新連結 RedundantDIObject_001 的 Topic2，再 Deploy。\", \"Object Viewer 觀察 DISourceActive、DISourceStandby；在測試環境觸發 ForceFailoverCmd，確認 Active 改變與 PV 品質。\"], \"tip\": \"Connected 表示通道連上；DISourceActive 才表示目前採用哪個來源。\", \"trouble\": \"B 端 Disconnected：檢查 MBTCP_Back 名稱、Activate、Topic2、節點授權與 SuiteLink 加密錯誤。不要關閉安全設定來繞過錯誤。\", \"question\": \"哪個屬性可判斷目前資料來源？\", \"options\": [\"DISourceActive\", \"PV\", \"Description\"], \"answer\": 0, \"minutes\": 40}, {\"id\": \"script\", \"group\": \"腳本與維運\", \"title\": \"自動重連與日誌\", \"subtitle\": \"讓故障能重現，也能被驗證。\", \"intro\": \"此腳本取自內部教材。ConnectionStatus 的數值對應與 Reconnect 屬性，應先於目前版本 Object Viewer 與說明文件核對。\", \"steps\": [\"在測試 _002_P 新增 Reconnect 腳本。\", \"教材條件 Me.ConnectionStatus <> 2；先確認 2 在本機代表 Connected。\", \"Trigger type WhileTrue，Trigger period 00:00:05，Execution type Execute。\", \"程式內容：Me.Reconnect = true; 及 LogMessage(\\\"=====Reconnecting=====\\\");。\", \"Check-in、Deploy；測試 Driver Deactivate，觀察狀態與每五秒日誌。\", \"重新 Activate，確認 Connected、Good 品質與 PV 更新；持續重連則回查根因。\"], \"tip\": \"WhileTrue 是條件成立時週期執行；不等同資料變更事件。\", \"trouble\": \"只有日誌卻未恢復？確認 Driver 已啟動、網路可達、授權正常；重連腳本無法修正錯誤位址或安全設定。\", \"question\": \"重連成功應同時驗證什麼？\", \"options\": [\"只有日誌\", \"連線、品質與數值更新\", \"視窗顏色\"], \"answer\": 1, \"minutes\": 30}, {\"id\": \"intouch\", \"group\": \"圖控畫面\", \"title\": \"InTouch 狀態面板\", \"subtitle\": \"讓操作員一眼理解 Primary 與 Backup。\", \"intro\": \"依內部教材製作 Industrial Graphic 狀態燈與切換按鈕；本網站的互動面板為模擬，沒有連接公司設備。\", \"steps\": [\"Visualization 新增 Graphic，畫出 PLC_002、P／B 指示燈、State 文字與 Redundant 按鈕。\", \"燈號用 Fill Style Boolean，判斷 DISourceActive 是否等於對應 Client 的完整名稱。\", \"Value Display 綁定狀態屬性；教材此處為推測，須確認數值轉文字方式。\", \"按鈕 Action Script 建議設定 RedundantDIObject_001.ForceFailoverCmd = true;，確認權限與本機屬性後才測試。\", \"Check-in Graphic，在測試 InTouch 視窗放入圖形；內部範例入口為 TestArea > CpuMonitor。\", \"執行並驗證燈號、狀態文字、切換結果及斷線品質，避免把紅綠燈當作唯一判斷。\"], \"tip\": \"Industrial Graphic 是可重用畫面元件；動畫是資料與外觀之間的綁定。\", \"trouble\": \"畫面值不更新？先檢查物件參照、部署狀態與資料品質，再查 Graphic 綁定。\", \"question\": \"綠燈代表什麼（此教材設計）？\", \"options\": [\"目前 Active 來源\", \"保證 PLC 正常\", \"歷史資料已寫入\"], \"answer\": 0, \"minutes\": 40}, {\"id\": \"alarm\", \"group\": \"告警與歷史\", \"title\": \"Alarm、Trend 與 History\", \"subtitle\": \"數值、品質、告警要一起看。\", \"intro\": \"PV 是目前值；Alarm 是符合條件時產生的事件；History 是歷史紀錄。以下為教學練習，告警門檻不代表現場設計。\", \"steps\": [\"在測試 PV 啟用 Limit alarms，教材範例 LoLo 10、Lo 25、Hi 75、HiHi 90。\", \"先將模擬值設 50，再提高至 80，觀察 Hi；提高至 95，觀察 HiHi。\", \"觀察觸發、確認與恢復的差異；Ack 不代表製程已恢復正常。\", \"啟用 History 前確認 Historian 服務、連線與授權；設定記錄策略後部署。\", \"以固定間隔改變模擬值，在 Trend 比對時間戳、工程單位與資料品質。\"], \"tip\": \"2048 是連線驗證原始值；若直接套 90 的上限會立即觸發告警，應先完成縮放與門檻設計。\", \"trouble\": \"無歷史值？從物件品質、History 設定、Historian 服務、時間同步與授權逐一檢查。\", \"question\": \"Ack 是否代表數值已恢復？\", \"options\": [\"是\", \"否\", \"一定會停止記錄\"], \"answer\": 1, \"minutes\": 30}, {\"id\": \"trouble\", \"group\": \"維運工具箱\", \"title\": \"故障排除與交接\", \"subtitle\": \"沿著資料流找出第一個異常點。\", \"intro\": \"建立可重現的問題紀錄：時間、版本、物件、錯誤訊息、預期結果、實際結果與已做動作。\", \"steps\": [\"PV 不動：先改模擬器，確認 OCMC 更新，再查 DI、物件品質、畫面參照。\", \"Watchdog 啟動逾時：查 Windows 事件 7000／7009 及 AVEVA 日誌，記錄相依服務狀態。\", \"唯讀查看 Get-Service -Name Watchdog_Service，不以 Running 當作整個系統正常的證明。\", \"改名或重新指派 I/O 前依內部流程 Undeploy；改後 Save、Check-in、Deploy。\", \"交接前備份 Galaxy、記錄版本與命名，保留故障前後日誌與驗證結果。\"], \"tip\": \"Log Viewer 提供 AVEVA 診斷訊息；Windows Event Viewer 補充作業系統及服務事件。\", \"trouble\": \"本教材不提供未經確認的正式主機位址、帳密或寫入現場設備操作。內部 SOP 仍需主管審核。\", \"question\": \"排錯最適合從哪裡開始？\", \"options\": [\"隨機重裝\", \"第一個異常的資料節點\", \"直接關閉防火牆\"], \"answer\": 1, \"minutes\": 20}] import {lessonVisuals} from './visuals.js';\nconst lessons=await fetch('lessons.json').then(r=>r.json());\n// Model: lesson repository and local learning state; View: render functions; Controller: route and events.\nconst Model={lessons,done:JSON.parse(localStorage.getItem('fmcs-done')||'[]')};\nconst $=s=>document.querySelector(s);let current=0;\nconst esc=s=>s.replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]));\nfunction nav(filter=''){let group='';$('#nav').innerHTML=lessons.filter(l=>(l.title+l.intro+l.steps.join('')).toLowerCase().includes(filter.toLowerCase())).map(l=>{let h=l.group!==group?`<small>${esc(l.group)}</small>`:'';group=l.group;return h+`<a href=\"#${l.id}\" class=\"${lessons[current]===l?'active':''}\"><span>${Model.done.includes(l.id)?'✓':String(lessons.indexOf(l)+1).padStart(2,'0')}</span>${l.title}</a>`}).join('')||'<p>沒有符合的課程</p>';$('#progressText').textContent=`已完成 ${Model.done.length} / ${lessons.length} 課程`;$('#progressBar').style.width=Model.done.length/lessons.length*100+'%'}\nfunction render(){let id=location.hash.slice(1)||'start';if(id==='sources'){sources();return}current=Math.max(0,lessons.findIndex(l=>l.id===id));const l=lessons[current];nav($('#search').value);$('#main').innerHTML=`<div class=\"crumb\">學習中心　 /　System Platform　 /　${l.group}</div><div class=\"eyebrow\">LESSON ${String(current+1).padStart(2,'0')} · ${l.group}</div><h1>${l.title}</h1><div class=\"subtitle\">${l.subtitle}</div><div class=\"meta\"><span class=\"pill\">入門實作</span><span>◷ 約 ${l.minutes} 分鐘</span><span>2023 R2 SP1 P03</span></div><section class=\"intro\" id=\"overview\"><b>這一課，你會學到什麼？</b><p>${l.intro}</p></section>${[\"start\",\"template\"].includes(l.id)?physicalIllustration():\"\"}${lessonVisuals(l.id)}<h2 id=\"steps\">逐步操作</h2>${l.steps.map((s,i)=>`<div class=\"step\"><span>${i+1}</span><p>${esc(s)}</p></div>`).join('')}<div class=\"tip\"><b>IT 人的理解方式 / 操作提醒</b><br>${l.tip}</div><h2 id=\"lab\">動手試試看</h2><div class=\"lab\"><div class=\"lab-head\"><span>PLC 通訊與備援互動面板</span><span>● 瀏覽器模擬</span></div><div class=\"lab-body\"><div class=\"monitor\"><div><small>Temperature001.PV</small><strong id=\"pv\">50.0</strong></div><div><small>QUALITY</small><div id=\"quality\"><i class=\"lamp\"></i>C0:Good</div></div><div><small>ACTIVE SOURCE</small><div id=\"active\">Primary</div></div><div><small>LIMIT ALARM</small><div id=\"alarm\">Normal</div></div></div><div class=\"lab-controls\"><label for=\"range\">模擬 PV</label><input type=\"range\" id=\"range\" min=\"0\" max=\"100\" value=\"50\"><button id=\"switch\">切換備援</button><button id=\"disconnect\">模擬斷線</button></div><p class=\"caption\">調高到 75 以上觀察告警，模擬斷線觀察品質。操作不會寫入 PLC。</p></div></div><h2 id=\"quiz\">檢查你的理解</h2><div class=\"quiz\"><b>${l.question}</b>${l.options.map((o,i)=>`<button data-answer=\"${i}\">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}<div class=\"feedback\" aria-live=\"polite\" id=\"feedback\"></div></div><h2 id=\"trouble\">卡住了？先檢查這裡</h2><div class=\"trouble\">${l.trouble}</div><div class=\"sources\"><b>資料依據與版本</b><p>內部：AVEVA_PLC_InTouch_操作步驟教學，第 3–26 頁；AVEVAApplicationServer_2023_RevA_Presentation。AHU 範例為教學設計。<a href=\"#sources\">查看官方來源與版本說明 ↗</a></p></div><div class=\"bottom\">${current?`<a href=\"#${lessons[current-1].id}\">← 上一課</a>`:'<span></span>'}<button class=\"primary\" id=\"complete\">${Model.done.includes(l.id)?'✓ 已完成本課':'標記已完成 ✓'}</button>${current<lessons.length-1?`<a href=\"#${lessons[current+1].id}\">下一課 →</a>`:'<a href=\"#start\">返回起點</a>'}</div>`;\nlet connected=true,backup=false;const update=()=>{let v=+$('#range').value;$('#pv').textContent=connected?v.toFixed(1):'—';$('#quality').textContent=connected?'● C0:Good':'● 00:Bad';$('#alarm').textContent=!connected?'資料無效':v>=90?'HiHi':v>=75?'Hi':v<=10?'LoLo':v<=25?'Lo':'Normal'};$('#range').oninput=update;$('#switch').onclick=()=>{$('#active').textContent=(backup=!backup)?'Backup':'Primary'};$('#disconnect').onclick=()=>{connected=!connected;$('#disconnect').textContent=connected?'模擬斷線':'恢復連線';update()};document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{$('#feedback').textContent=+b.dataset.answer===l.answer?'✓ 正確！請繼續完成實作並記錄結果。':`再想想：${l.tip}`});$('#complete').onclick=()=>{if(!Model.done.includes(l.id))Model.done.push(l.id);localStorage.setItem('fmcs-done',JSON.stringify(Model.done));$('#complete').textContent='✓ 已完成本課';nav($('#search').value)};$('#sidebar').classList.remove('open');window.scrollTo(0,0)}\nfunction sources(){$('#main').innerHTML=`<div class=\"eyebrow\">REFERENCE LIBRARY</div><h1>教材來源與維護說明</h1><p>內容以提供的內部教材與 AVEVA 官方文件交叉整理。未取得公司即時系統與正式 SOP；不宣稱已完成公司內網串接。</p><h2>官方文件</h2><p><a href=\"https://docs.aveva.com/category/system-platform\" target=\"_blank\" rel=\"noopener\">AVEVA System Platform 文件入口 ↗</a></p><p><a href=\"https://docs.aveva.com/bundle/system-platform/page/1253915.html\" target=\"_blank\" rel=\"noopener\">Application Server 與 Galaxy 架構 ↗</a></p><p><a href=\"https://docs-be.aveva.com/bundle/sp-getstarted-2023-r2/raw/resource/enus/sp-getstarted-2023-r2.pdf\" target=\"_blank\" rel=\"noopener\">2023 R2 Get Started（PDF）↗</a></p><p><a href=\"https://docs-be.aveva.com/bundle/sp-deployment-2023-r2/raw/resource/enus/sp-deployment-2023-r2.pdf\" target=\"_blank\" rel=\"noopener\">2023 R2 Deployment（PDF）↗</a></p><div class=\"tip\">官方入口可能顯示更新的 SP2 或 P04。目標環境為 SP1 P03，實際選單與功能須以安裝版本內建 Help、版本相符文件及宇辰審核結果為準。</div><h2>內部教材</h2><p>AVEVAApplicationServer_2023_RevA_Presentation.txt；兩份同名 PLC / InTouch 操作簡報內容相同，合併為單一課程來源。教材標為推測與建議的部分已保留待確認狀態。</p><h2>MVC 維護</h2><p>下載 ASP.NET Core MVC 原始碼：Controllers 處理課程路由、Models 定義資料、Services 讀取 JSON、Views 顯示 Razor 頁面。課程保存在 Data/lessons.json。線上閱讀版使用相同課程資料與獨立 JS / CSS。</p><a class=\"source-download\" href=\"mvc-source.zip\">↓ 下載 MVC 專案與部署說明</a><h2>學習紀錄</h2><p>完成度僅儲存在本瀏覽器 localStorage，沒有公司帳號或多人同步；清除瀏覽器資料後會重設。</p>`;window.scrollTo(0,0)}\nwindow.addEventListener('hashchange',render);$('#search').oninput=e=>nav(e.target.value);$('#menu').onclick=()=>$('#sidebar').classList.toggle('open');$('#theme').onclick=()=>{document.body.classList.toggle('dark');localStorage.setItem('fmcs-dark',document.body.classList.contains('dark'))};if(localStorage.getItem('fmcs-dark')==='true')document.body.classList.add('dark');document.querySelectorAll('[data-scroll]').forEach(a=>a.onclick=e=>{e.preventDefault();document.getElementById(a.dataset.scroll)?.scrollIntoView()});render();\n\nfunction physicalIllustration(){return `<section class=\"equipment-explainer\"><h2>先認識現場：AHU、感測器與監控主機</h2><figure><img class=\"equipment-img\" src=\"assets/ahu-illustration.png\" alt=\"工廠空氣處理機概念插圖，包含風管、風機、溫度感測器、PLC 控制箱與監控畫面。\" loading=\"lazy\"><figcaption>AI 生成的設備概念插圖，不是實際廠區照片，也不表示設備接線配置。</figcaption><button type=\"button\" class=\"zoom-figure\" data-figure=\"assets/ahu-illustration.png\" data-title=\"AHU 設備概念插圖\">＋ 放大設備插圖</button></figure><div class=\"visual-key\"><p><b>AHU 空氣處理機</b><br>處理與輸送空氣，包含濾網、盤管、風機等組件。</p><p><b>感測器 → PLC</b><br>感測器量測狀態；PLC 讀取訊號，再提供給上位監控系統。</p><p><b>監控畫面</b><br>InTouch 顯示設備值、狀態與告警；此插圖僅供理解。</p></div></section>`;}\n// Reader controls and image viewing are shared across lesson routes.\nlet readSize=Number(localStorage.getItem('fmcs-read-size')||19);\nif(![19,21,23].includes(readSize)) readSize=19;\nconst applyReadSize=()=>{document.documentElement.style.setProperty('--reading-size',readSize+'px');document.getElementById('font-state').textContent=readSize+'px';localStorage.setItem('fmcs-read-size',readSize);};\ndocument.getElementById('font-down').onclick=()=>{readSize=Math.max(19,readSize-2);applyReadSize()};\ndocument.getElementById('font-up').onclick=()=>{readSize=Math.min(23,readSize+2);applyReadSize()};\napplyReadSize();\nconst figureDialog=document.getElementById('figure-dialog');let imageOpener;\ndocument.addEventListener('click',e=>{const b=e.target.closest('[data-figure]');if(!b)return;imageOpener=b;const img=document.getElementById('dialog-image');img.src=b.dataset.figure;img.alt=b.dataset.title;document.getElementById('dialog-title').textContent=b.dataset.title;document.getElementById('original-image').href=b.dataset.figure;figureDialog.showModal();});\ndocument.getElementById('close-figure').onclick=()=>figureDialog.close();\nfigureDialog.addEventListener('close',()=>imageOpener?.focus());\n export const visuals = {\n  \"start\": {\n    \"title\": \"FMCS 是怎麼工作的？\",\n    \"desc\": \"現場設備經通訊及 Galaxy 處理後提供圖控與歷史；IT 依值、品質及日誌排錯。\"\n  },\n  \"galaxy\": {\n    \"title\": \"Galaxy、IDE、執行環境：三件不同的事\",\n    \"desc\": \"IDE 編輯 Galaxy；Galaxy 設定部署到 WinPlatform 與 AppEngine，AppEngine 執行 AHU 實例。Area 是邏輯分組。\"\n  },\n  \"template\": {\n    \"title\": \"一份模板，建立多台 AHU 實例\",\n    \"desc\": \"共用模板建立 AHU_001、AHU_002，各有自己的屬性值。\"\n  },\n  \"plc\": {\n    \"title\": \"追蹤一筆 PLC 資料：400001 → PV\",\n    \"desc\": \"Modbus 模擬器經 OI MBTCP Driver、SuiteLink Client 傳入 Temperature001.PV。\"\n  },\n  \"redundancy\": {\n    \"title\": \"雙 Driver 備援：兩條路徑，一個 Active\",\n    \"desc\": \"Primary 與 Backup Client 接至 RedundantDIObject，由其選擇 Active 來源。此同機測試不是主機級備援。\"\n  },\n  \"script\": {\n    \"title\": \"重連腳本：先判斷，再嘗試，再驗證\",\n    \"desc\": \"連線正常時監看；斷線依觸發週期提出重連，恢復後驗證品質與更新。\"\n  },\n  \"intouch\": {\n    \"title\": \"畫面上兩種不同資訊，不要混在一起\",\n    \"desc\": \"Active 狀態決定選用來源；ConnectionStatus 與 PV 品質表示通訊與資料有效性。\"\n  },\n  \"alarm\": {\n    \"title\": \"同一個 PV，三種不同用途\",\n    \"desc\": \"即時值顯示、超限告警與歷史記錄是不同功能；Ack 不代表數值恢復。\"\n  },\n  \"trouble\": {\n    \"title\": \"用資料流定位故障：從哪裡開始不更新？\",\n    \"desc\": \"比較模擬器、Object Viewer 與圖控畫面，定位第一個不更新的節點。\"\n  }\n};\nexport function lessonVisuals(id) {\n const v=visuals[id];\n return `<section class=\"visual-section\" id=\"flow\"><div class=\"visual-heading\"><div><span class=\"eyebrow\">先看圖，再看操作</span><h2>${v.title}</h2></div><span class=\"diagram-badge\">本課專用圖解</span></div><figure><div class=\"figure-scroll\"><img src=\"assets/${id}-diagram.svg\" alt=\"${v.desc}\" loading=\"lazy\" width=\"1000\" height=\"680\"></div><figcaption>${v.desc}</figcaption><button type=\"button\" class=\"zoom-figure\" data-figure=\"assets/${id}-diagram.svg\" data-title=\"${v.title}\">＋ 放大流程圖</button></figure><p class=\"figure-help\">手機可左右滑動看完整圖，或點「放大」檢視。圖中文字另有下方說明可閱讀。</p><h3>操作畫面，先找這兩個位置</h3><figure><div class=\"figure-scroll\"><img src=\"assets/${id}-screen.svg\" alt=\"${v.title}操作定位示意：左側找到物件，右側核對設定欄位。非真實軟體截圖。\" loading=\"lazy\" width=\"1000\" height=\"620\"></div><figcaption>① 左側：找到物件或視圖。② 右側：核對設定。這是教學畫面示意，實際介面依安裝版本為準。</figcaption><button type=\"button\" class=\"zoom-figure\" data-figure=\"assets/${id}-screen.svg\" data-title=\"操作定位示意\">＋ 放大操作示意</button></figure></section>`;\n}\n",
+    "source": "yuchen-fmcs-academy-jason"
+  },
+  {
+    "id": "intouch",
+    "title": "InTouch 圖控教學",
+    "description": "從 WindowMaker、AHU 圖形與數值綁定，到狀態、警報及 WindowViewer 驗收。",
+    "level": "基礎",
+    "duration": "8 步驟",
+    "path": "courses/intouch/index.html",
+    "sections": [
+      {
+        "title": "先在 Object Viewer 確認資料",
+        "anchor": "prepare"
+      },
+      {
+        "title": "建立受管理的 InTouch 應用",
+        "anchor": "application"
+      },
+      {
+        "title": "用 WindowMaker 規劃一張 AHU 畫面",
+        "anchor": "window"
+      },
+      {
+        "title": "建立可重用 Industrial Graphic",
+        "anchor": "graphic"
+      },
+      {
+        "title": "把溫度數值綁到正確 Attribute",
+        "anchor": "binding"
+      },
+      {
+        "title": "讓風機燈號與資料品質分開呈現",
+        "anchor": "status"
+      },
+      {
+        "title": "加入警報與歷史趨勢的閱讀入口",
+        "anchor": "alarms"
+      },
+      {
+        "title": "在 WindowViewer 驗收畫面",
+        "anchor": "verify"
+      }
+    ],
+    "search": "      InTouch 圖控教學｜AHU 監控畫面        INTOUCH GRAPHICS · STEP BY STEP  做一張看得懂的 AHU 監控畫面  沿用現有 AVEVA 圖文教材，從資料驗證、WindowMaker 編輯與圖形綁定，到 WindowViewer 驗收。每一步都有相關軟體畫面，可點擊放大。   本路線：System Platform 受管理 InTouch  獨立式 InTouch 的 Tagname Dictionary／Access Name 與受管理應用的 Galaxy 參照，設定路線不同。先確認自己的應用類型，再跟著操作。截圖保留來源名稱與數值，部分來自舊版手冊，並非目前專案的設定值。    01　先在 Object Viewer 確認資料  02　建立受管理的 InTouch 應用  03　用 WindowMaker 規劃一張 AHU 畫面  04　建立可重用 Industrial Graphic  05　把溫度數值綁到正確 Attribute  06　讓風機燈號與資料品質分開呈現  07　加入警報與歷史趨勢的閱讀入口  08　在 WindowViewer 驗收畫面    STEP 01  先在 Object Viewer 確認資料       AVEVA Object Viewer 手冊，2020，PDF p.10，舊版介面。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   準備一台測試 AHU，列出送風溫度、風機運轉、故障、來源狀態與品質。  在 IDE 的 Object Viewer 觀察測試物件，記錄每個 Attribute 的完整參照。  改變模擬來源，確認數值、品質與更新時間同步變化。    完成時應看到  Object Viewer 與來源數值一致，且能分辨無效或停止更新的資料。    常見問題與提醒  畫面有數字不代表通訊正常；先把資料路徑驗證成功，再做圖控。       STEP 02  建立受管理的 InTouch 應用       AVEVA InTouch Application Management，2020，PDF p.56，解析度設定。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   本路線以 System Platform 的受管理 InTouch 應用為主。先確認測試 Galaxy、ViewEngine 與授權。  在 IDE 找到 InTouchViewApp 範本與測試實例，使用精靈建立應用並選擇目標解析度。  若選 InTouchView Application，外部資料來源使用 Application Server 參照；不要混用獨立式專案設定。    完成時應看到  能從 IDE 開啟對應應用的 WindowMaker，應用名稱與部署位置符合測試規劃。    常見問題與提醒  截圖包含舊版介面與範例名稱；請以安裝版本的精靈和 Help 為準。       STEP 03  用 WindowMaker 規劃一張 AHU 畫面       AVEVA InTouch HMI Getting Started，PDF p.47，Galaxy 參照範例。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   WindowMaker 是編輯環境；WindowViewer 是執行環境。從 IDE 維護受管理應用。  新增測試視窗，例如 AHU_Overview；依現有專案規範設定視窗大小與開啟方式。  先安排標題、設備、數值、品質、警報與狀態區；保留足夠字級與單位。    完成時應看到  測試視窗能開啟，文字、單位、設備名稱與狀態區可清楚辨識。    常見問題與提醒  圖中的 Reactor 等名稱來自來源教材，並非你的 AHU 點位。       STEP 04  建立可重用 Industrial Graphic       相關 AVEVA 軟體畫面，沿用 Modbus 與備援圖文教材；介面依版本不同。。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   在 IDE 的圖形工作區建立測試用 Industrial Graphic；以風機、管路、溫度與狀態文字組成 AHU 面板。  先使用固定文字與簡單形狀確認版面，再逐一加入資料動畫。  將圖形放入測試 InTouch 視窗；共用外觀應沿用現有範本，設備參照依各實例設定。    完成時應看到  同一圖形可依設備參照重用，不需要複製整套畫面再逐一改文字。    常見問題與提醒  編輯圖形與執行畫面是不同階段；尚未綁定的符號只是靜態圖。       STEP 05  把溫度數值綁到正確 Attribute       AVEVA InTouch HMI Getting Started，PDF p.47，Galaxy 參照範例。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   選取要顯示數值的圖形或文字，開啟相應的顯示動畫設定。  透過 Galaxy Browser 選取第 1 步驗證過的實際 Attribute 完整參照，避免只憑名稱手打。  設定小數位及單位。回到測試來源改變數值，逐一比對來源、Object Viewer 與畫面。    完成時應看到  三處數值一致，縮放與單位正確，沒有誤綁到另一台設備。    常見問題與提醒  單位字樣不會自動替你做工程值換算；縮放位置必須與點位表一致。       STEP 06  讓風機燈號與資料品質分開呈現       AVEVA InTouch HMI Getting Started，PDF p.43，Reactor 範例非 AHU。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   將風機的運轉 Boolean 綁定到對應的填色或狀態動畫；使用文字同時標示運轉、停止或故障。  另設資料品質與來源狀態區。主／備用來源是否 Active，與 PLC 是否可達，是不同訊息。  只在隔離的測試來源模擬運轉、故障與斷線，逐一記錄畫面反應。    完成時應看到  畫面能分辨「停止但資料正常」與「失聯、狀態未知」，不只依靠紅綠色判斷。    常見問題與提醒  舊值仍存在時，不應持續呈現成有效即時值；品質判斷依實際屬性與版本設定。       STEP 07  加入警報與歷史趨勢的閱讀入口       AVEVA InTouch HMI Getting Started，PDF p.27，本機 Tag 警報參考。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   先在設備 Attribute 與相關服務確認測試警報條件、優先度及歷史收集規劃。  在圖控加入警報與趨勢的顯示入口，選取正確設備範圍、點位與查詢時段。  測試警報觸發、恢復與確認；再用不同時間範圍檢查歷史趨勢與缺值。    完成時應看到  警報點位與時間正確，恢復和確認可區分；歷史查詢讀到已收集的資料。    常見問題與提醒  只放一個趨勢元件不會自動建立 Historian 收集；畫面正常也不代表歷史入庫正常。       STEP 08  在 WindowViewer 驗收畫面       AVEVA InTouch HMI Getting Started，PDF p.43，Reactor 範例非 AHU。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   儲存並依專案流程 Check-in 圖形及應用；核對測試節點、ViewEngine 與應用的部署狀態。  啟動對應測試應用的 WindowViewer，確認開啟的是本次更新版本。  依序驗證正常值、變動值、運轉、停止、故障、失聯、恢復、警報與趨勢，保存截圖與結果。    完成時應看到  每個點位、品質、單位、狀態與時間都通過核對，再依正式變更流程交付。    常見問題與提醒  本教學未實際部署你的 AVEVA 環境；按鈕命令、權限與 PLC 連鎖需要另行驗證。       接著操作既有互動教材   InTouch 狀態面板與瀏覽器模擬 →    5 個 InTouch 圖文步驟與可點擊欄位 →    警報與歷史資料圖文操作 →     官方文件與版本    Create a managed InTouch application    Open an application in WindowMaker and WindowViewer    Working with InTouch Tags（獨立式標籤觀念對照）    本網站不連接或控制現場設備。介面、動畫名稱與可用功能依版本、授權及應用類型不同，請以安裝版本 Help 與現場核准文件為準。     關閉 ×       ",
+    "source": "integrated-intouch-guide"
+  },
+  {
+    "id": "ahu",
+    "title": "AHU 設備實作",
+    "description": "以一台空調箱串起點位、建模、警報與歷史資料。",
+    "level": "基礎",
+    "duration": "8 步驟",
+    "path": "courses/ahu/index.html",
+    "sections": [
+      {
+        "title": "PLC 控制現場，AVEVA 讓資料可見。",
+        "anchor": "topic-1"
+      },
+      {
+        "title": "先看懂一台 AHU",
+        "anchor": "topic-2"
+      },
+      {
+        "title": "現場到畫面的資料路徑",
+        "anchor": "topic-3"
+      },
+      {
+        "title": "步驟 1：準備 PLC 點位表",
+        "anchor": "topic-4"
+      },
+      {
+        "title": "步驟 2：建立執行架構",
+        "anchor": "topic-5"
+      },
+      {
+        "title": "步驟 3：建立範本與實例",
+        "anchor": "topic-6"
+      },
+      {
+        "title": "步驟 4：接上通訊與 I/O",
+        "anchor": "topic-7"
+      },
+      {
+        "title": "步驟 5：建立操作畫面",
+        "anchor": "topic-8"
+      },
+      {
+        "title": "步驟 6：設定高溫警報",
+        "anchor": "topic-9"
+      },
+      {
+        "title": "步驟 7：設定歷史收集",
+        "anchor": "topic-10"
+      },
+      {
+        "title": "步驟 8：完成驗收與排錯",
+        "anchor": "topic-11"
+      },
+      {
+        "title": "溫度升高後，警報會怎麼變？",
+        "anchor": "topic-12"
+      },
+      {
+        "title": "檢查一下：設備歷史值主要存在哪裡？",
+        "anchor": "topic-13"
+      }
+    ],
+    "search": "AHU 實作教室｜AVEVA FMCS \n  FMCS / 實作教室   架構  課程  模擬  下載簡報 ↗    \n   AVEVA SYSTEM PLATFORM · IT / MIS  從一台空調箱， 看懂整個 FMCS。  以記憶體製造廠 AHU 為情境，跟著資料走一遍：從 PLC 讀值、設備建模，到畫面、警報與歷史。  開始實作課程   試試溫度模擬   10 節短課程  繁體中文  2023 R2 系列概念                濾網  盤管  風機   簡化設備示意。實際潔淨室另有 MAU、FFU 等系統。本教材為教學案例，未連接工廠設備。   \n  SYSTEM MAP  PLC 控制現場，AVEVA 讓資料可見。  讀值路徑依序為 01 至 04，再分別送到操作畫面與歷史服務。IDE 另將專案設定保存於 Galaxy SQL 資料庫。   01 感測器 溫度、壓差、風機回授   02 PLC 控制、連鎖與保護   03 OI Server 驅動與 SuiteLink 通訊   04 AppEngine AHU_001 設備物件   05 InTouch / OMI 即時畫面、警報與操作   06 Historian 歷史收集與趨勢查詢      資料  保存位置    範本、物件與設定  Galaxy Repository / SQL Server    溫度、壓差等歷史值  Historian / History Blocks    工單與每日彙總  自建 SQL 業務資料庫，需另行整合    \n   學習路線  0 / 10 已完成     01　先看懂一台 AHU  02　現場到畫面的資料路徑  03　步驟 1：準備 PLC 點位表  04　步驟 2：建立執行架構  05　步驟 3：建立範本與實例  06　步驟 4：接上通訊與 I/O  07　步驟 5：建立操作畫面  08　步驟 6：設定高溫警報  09　步驟 7：設定歷史收集  10　步驟 8：完成驗收與排錯      LESSON 01  先看懂一台 AHU  AHU 是空調箱，負責處理並輸送空氣。本案例以記憶體廠的空調服務區域為背景，先學一台設備。   送風溫度：18.5°C  區域溫度：23.0°C  風機運轉與故障回授  濾網壓差：150 Pa    驗收重點  能說出 PLC 控制、AVEVA 監看各自的責任。    我已理解這一節    LESSON 02  現場到畫面的資料路徑  本例採 PLC、OI Server、SuiteLink 與 DDESuiteLinkClient 連接路徑。   感測器提供溫度與壓差訊號  PLC 執行控制、連鎖與保護  OI Server 依 PLC 型號使用適用驅動  AppEngine 更新 AHU_001 的 Attribute    驗收重點  知道 PLC 品牌、通訊協定及驅動版本後，再設定連線。    我已理解這一節    LESSON 03  步驟 1：準備 PLC 點位表  點位表像 API 規格，先約定名稱、型別、方向與工程單位。   SupplyTemp／Float／讀取／°C  RoomTemp／Float／讀取／°C  FanRunning、FanFault／Boolean／讀取  FilterDP／Float／讀取／Pa  StartRequest／Boolean／寫入    驗收重點  本頁名稱為示意別名，實際 PLC 位址須由點位表確認。    我已理解這一節    LESSON 04  步驟 2：建立執行架構  在 IDE 的 Model 配置邏輯歸屬，在 Deployment 檢查執行位置。   WinPlatform：FMCS_Platform，對應執行電腦  AppEngine：FMCS_Engine，承載物件  Area：Cleanroom_HVAC，空調區域  DDESuiteLinkClient 實例：PLC_Client    驗收重點  確認引擎指派至正確 Platform，設備歸屬正確 Area。    我已理解這一節    LESSON 05  步驟 3：建立範本與實例  從 $UserDefined 衍生 $AHU_Template，再建立 AHU_001。   Templates：建立衍生範本  Attributes：新增溫度、壓差與狀態  設定型別與工程單位，先用內部模擬值  儲存並 Check-in，建立設備實例    驗收重點  Object Viewer 能讀到模擬值。第二台設備可沿用同一範本。    我已理解這一節    LESSON 06  步驟 4：接上通訊與 I/O  先證明 OI Server 能讀 PLC，再設定設備 Attribute 的輸入參照。   OI Server：設定裝置與通訊群組  PLC_Client：設定 Server、Topic 等適用欄位  AHU_001：將各屬性對應點位  Validate、Check-in，部署所需物件  Object Viewer：比對數值、時間與品質    驗收重點  PLC 23.0°C 與 AVEVA 相符；若為 230，確認縮放責任。    我已理解這一節    LESSON 07  步驟 5：建立操作畫面  使用已安裝且授權的 InTouch 或 OMI，綁定設備屬性。   數字元件：RoomTemp、SupplyTemp、FilterDP  風機圖示：綁定 FanRunning  故障指示：綁定 FanFault  資料品質不正常時，清楚顯示資料無效  先完成唯讀畫面，再於測試環境加入命令    驗收重點  畫面值與 Object Viewer 相符，通訊中斷不冒充正常。    我已理解這一節    LESSON 08  步驟 6：設定高溫警報  教學條件：溫度高於 25°C 持續 30 秒發報，回到 24.5°C 以下恢復。   在 RoomTemp 配置適用的高限警報  依版本設定延遲與回復死區  加入警報清單並驗證發生、確認及恢復  警報確認表示人員已知悉，不等於異常消失    驗收重點  所有門檻都是教學值，正式設定依設備及廠務規範。    我已理解這一節    LESSON 09  步驟 7：設定歷史收集  Galaxy SQL 存專案設定，Historian 保存設備時間序列。   在溫度與壓差屬性啟用 History  設定收集條件、死區與必要的強制儲存  AppEngine 設定 Historian 目的地  確認服務、授權、連線，再簽入部署  趨勢查詢檢查數值、時間戳記與品質    驗收重點  Historian 歷史值主要存在 History Blocks，備份要包含它們。    我已理解這一節    LESSON 10  步驟 8：完成驗收與排錯  一次只改一個條件，沿著資料流找到問題所在。   模擬 23°C 變 26°C，確認畫面更新  持續超限 30 秒，確認發報  確認警報後，降至 24.5°C 以下檢查恢復  查趨勢確認歷史值可追溯  斷開模擬通訊，確認品質無效提示    驗收重點  先讓單路通訊穩定，再加入 RedundantDIObject 主備來源。    我已理解這一節    \n  INTERACTIVE LAB · 模擬資料  溫度升高後，警報會怎麼變？  高於 25°C 持續 30 秒發報，低於 24.5°C 恢復。點「推進 10 秒」加速練習，不代表現場掃描週期。   區域溫度   推進 10 秒  確認警報    通訊連線  重設   23.0°C  正常／尚無高溫警報    模擬時間 0 秒。資料品質 Good。  \n  QUICK CHECK  檢查一下：設備歷史值主要存在哪裡？  Galaxy 的一般 SQL 資料表  Historian 的 History Blocks  IDE 編輯視窗    \n  使用範圍  本教材採簡化教學架構，非特定記憶體廠設計。溫度、壓差、警報門檻與點位別名都是範例。實際通訊欄位、授權與功能請依已安裝版本確認。學習進度保存在目前瀏覽器。  延伸與官方參考   AVEVA 半導體廠應用案例 ↗   System Platform 2023 R2 入門指南 ↗   Historian 2023 R2 文件 ↗ const $=id=>document.getElementById(id);let saved={};try{saved=JSON.parse(localStorage.getItem('ahuLessons')||'{}')}catch{};function progress(){let n=[...document.querySelectorAll('[data-lesson]')].filter(x=>x.checked).length;$('progress').value=n;$('progressText').textContent=`${n} / 10 已完成`;}document.querySelectorAll('[data-lesson]').forEach(x=>{x.checked=!!saved[x.dataset.lesson];x.onchange=()=>{saved[x.dataset.lesson]=x.checked;try{localStorage.setItem('ahuLessons',JSON.stringify(saved))}catch{}progress()}});progress();\nlet time=0,over=0,active=false,ack=false,history=[23];\nfunction advanceAlarm(temp,connected,seconds){if(!connected){over=0;return}if(temp>25){over+=seconds;if(over>=30&&!active){active=true;ack=false}}else{over=0;if(temp<24.5)active=false}}\nfunction render(){let t=Number($('temp').value),connected=$('connection').checked;$('reading').textContent=connected?`${t.toFixed(1)}°C`:'資料無效';let status=!connected?'通訊中斷：警報狀態可能過時，請查現場':active?`高溫警報／${ack?'已確認':'未確認'}${t>=24.5?'／條件未恢復':''}`:over>0?`超限累計 ${over} 秒／等待 30 秒發報`:ack?'警報已恢復／已確認':'正常／尚無高溫警報';$('alarmStatus').textContent=status;$('alarmStatus').classList.toggle('alarm',active||!connected);$('simDetail').textContent=`模擬時間 ${time} 秒。資料品質 ${connected?'Good':'Bad'}。確認警報不會降低溫度。`;$('ack').disabled=!active;draw()}\nfunction draw(){let c=$('trend'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);ctx.strokeStyle='#98674f';ctx.beginPath();ctx.moveTo(0,160-(25-20)*16);ctx.lineTo(1000,160-(25-20)*16);ctx.stroke();ctx.fillStyle='#c5dcd8';ctx.font='14px sans-serif';ctx.fillText('25°C 高溫門檻',12,70);ctx.strokeStyle='#8edcbb';ctx.lineWidth=3;ctx.beginPath();let pen=false;history.forEach((v,i)=>{if(v===null){pen=false;return}let x=20+i*960/Math.max(1,history.length-1),y=160-(v-20)*16;if(pen)ctx.lineTo(x,y);else ctx.moveTo(x,y);pen=true});ctx.stroke()}\n$('advance').onclick=()=>{time+=10;advanceAlarm(Number($('temp').value),$('connection').checked,10);history.push($('connection').checked?Number($('temp').value):null);if(history.length>50)history.shift();render()};$('temp').oninput=()=>{advanceAlarm(Number($('temp').value),$('connection').checked,0);render()};$('connection').onchange=()=>{advanceAlarm(Number($('temp').value),$('connection').checked,0);render()};$('ack').onclick=()=>{if(active)ack=true;render()};$('reset').onclick=()=>{time=0;over=0;active=false;ack=false;history=[23];$('temp').value=23;$('connection').checked=true;render()};document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{$('feedback').textContent=b.dataset.answer==='1'?'答對了。Historian 主要以 History Blocks 保存歷史值，SQL 介面提供查詢。':'再想一下：Galaxy 主要保存專案設定，設備歷史交給 Historian。'});render();\n",
+    "source": "ahu-fmcs-jason-learning"
+  },
+  {
     "id": "onboarding",
-    "title": "新人實作與平台腳本",
-    "description": "八週路線、AHU 點位、QuickScript 與掃描觸發。",
-    "level": "實作",
+    "title": "平台腳本與整合實作",
+    "description": "接續平台與圖控基礎，練習 QuickScript、掃描觸發、點位映射與故障排查；八週路線可作複習。",
+    "level": "進階",
     "duration": "8 週",
     "path": "courses/onboarding/index.html",
     "sections": [
@@ -124,101 +280,9 @@
     "source": "fmcs-yuchen-academy"
   },
   {
-    "id": "platform",
-    "title": "System Platform 操作",
-    "description": "Galaxy、模板、PLC、InTouch、警報與維運的九堂圖文課。",
-    "level": "實作",
-    "duration": "9 堂課",
-    "path": "courses/platform/index.html",
-    "sections": [
-      {
-        "title": "認識 FMCS 與學習環境",
-        "anchor": "start"
-      },
-      {
-        "title": "Galaxy、IDE 與部署架構",
-        "anchor": "galaxy"
-      },
-      {
-        "title": "建立 AHU_Template 與 AHU_001",
-        "anchor": "template"
-      },
-      {
-        "title": "建立單一 PLC 連線",
-        "anchor": "plc"
-      },
-      {
-        "title": "雙 Driver 備援",
-        "anchor": "redundancy"
-      },
-      {
-        "title": "自動重連與日誌",
-        "anchor": "script"
-      },
-      {
-        "title": "InTouch 狀態面板",
-        "anchor": "intouch"
-      },
-      {
-        "title": "Alarm、Trend 與 History",
-        "anchor": "alarm"
-      },
-      {
-        "title": "故障排除與交接",
-        "anchor": "trouble"
-      }
-    ],
-    "search": "宇辰 FMCS 學習中心    ☰   Y  宇辰  FMCS ACADEMY   ⌕     A−  19px  A＋   ◐  官方文件 ↗     學習路徑 / LEARNING PATH  System Platform 入門  2023 R2 SP1 P03            實作環境  Windows Server 2022  SQL Server · AVEVA  僅於測試 Galaxy 操作   ↓ ASP.NET Core MVC 原始碼      本頁內容  概念說明  本課圖解與示意  逐步操作  互動練習  知識檢查  故障排除  學會一個概念， 驗證一個結果。 每次操作後，記錄數值、品質與日誌。       圖解  另開原圖 ↗  關閉 ✕   可左右／上下捲動查看細節；按 Esc 關閉。 [{\"id\": \"start\", \"group\": \"學習起點\", \"title\": \"認識 FMCS 與學習環境\", \"subtitle\": \"將 IT 經驗，轉成廠務監控能力。\", \"intro\": \"FMCS 是廠務監控系統，將空調、電力、用水等設備資料集中顯示、告警與追蹤。你熟悉的資料庫、服務與網路，都是排錯的重要基礎。\", \"steps\": [\"確認測試主機為 Windows Server 2022，記錄 System Platform 2023 R2 SP1 P03 與 SQL Server 版本。\", \"在獨立測試環境操作，先備份 Galaxy；記錄主機名稱、授權及登入權限。\", \"開啟 System Platform IDE，確認可連接測試 Galaxy。\", \"開啟 OCMC，找到 Log Viewer；確認 AVEVA Agent (Watchdog) 服務狀態。\"], \"tip\": \"Galaxy 像專案資料庫；IDE 像 Visual Studio；AppEngine 像執行物件邏輯的服務。\", \"trouble\": \"開始前無法連線？先記錄完整錯誤，再檢查 SQL 服務、主機解析、權限與 AVEVA 日誌。\", \"question\": \"哪個工具用來編輯 Galaxy 物件？\", \"options\": [\"System Platform IDE\", \"SQL Server Profiler\", \"IIS Manager\"], \"answer\": 0, \"minutes\": 15}, {\"id\": \"galaxy\", \"group\": \"平台基礎\", \"title\": \"Galaxy、IDE 與部署架構\", \"subtitle\": \"先看懂專案，再開始建立物件。\", \"intro\": \"Galaxy 保存應用物件及設定，底層使用 SQL Server。WinPlatform 對應執行節點；AppEngine 承載物件執行；Area 用於組織設備與區域。\", \"steps\": [\"啟動 IDE，選擇測試 Galaxy 並開啟。\", \"切換 Model、Deployment、Derivation 視圖，比較設備結構、部署位置與繼承關係。\", \"在測試 Galaxy 找出 WinPlatform、AppEngine 與 Area。\", \"記錄每個物件的 Host 與部署狀態，不要直接修改正式環境。\"], \"tip\": \"Check-in 是將編輯提交回 Galaxy；Deploy 是將設定送至執行環境，兩者不同。\", \"trouble\": \"找不到基底模板？檢查建立 Galaxy 時使用的 CAB；Blank 與 Default Galaxy 所含內容不同。\", \"question\": \"哪個動作讓設定進入執行環境？\", \"options\": [\"Check-in\", \"Deploy\", \"搜尋\"], \"answer\": 1, \"minutes\": 25}, {\"id\": \"template\", \"group\": \"物件與屬性\", \"title\": \"建立 AHU_Template 與 AHU_001\", \"subtitle\": \"用一份模板，維護一群空調設備。\", \"intro\": \"AHU 是空氣處理機。Template 可類比 C# 類別，Instance 類比實體，Attribute 類比屬性。此 AHU 命名與欄位為教學設計，須由宇辰專案負責人確認正式規範。\", \"steps\": [\"從 $UserDefined 衍生模板，使用 IDE 允許的名稱 AHU_Template（模板可能以 $ 顯示）。\", \"新增 SupplyTemp（Float）、RunStatus（Boolean）、Alarm（Boolean）。\", \"SupplyTemp 設工程單位 °C；此階段只做測試值，不連現場 I/O。\", \"Save、Check-in，從模板建立 AHU_001，指派測試 Area 與 AppEngine。\", \"Deploy 後用 Object Viewer 觀察 AHU_001.SupplyTemp；修改模板前先評估衍生物件影響。\"], \"tip\": \"AHU_001.SupplyTemp 是物件名稱加屬性名稱，類似物件的屬性存取。\", \"trouble\": \"無法編輯？檢查是否已 Check-out、權限是否足夠、屬性是否由模板鎖定。\", \"question\": \"同類設備應共用什麼以利維護？\", \"options\": [\"各自獨立腳本\", \"同一模板\", \"相同 IP\"], \"answer\": 1, \"minutes\": 40}, {\"id\": \"plc\", \"group\": \"PLC 通訊\", \"title\": \"建立單一 PLC 連線\", \"subtitle\": \"從一筆暫存器，追到一個畫面數值。\", \"intro\": \"依內部教材建立 ModRSsim2 → OI.MBTCP.1 → DDESuiteLinkClient → Temperature001.PV 的測試鏈路。\", \"steps\": [\"啟動 ModRSsim2，選 MODBUS TCP/IP、port 502；Holding Register 400001 設 2048。\", \"OCMC → OI Server Manager → Modicon - MBTCP → OI.MBTCP.1，設定 TCPIP_PORT 與模擬器位址。\", \"新增 Device Group Topic2，Update Interval 1000 ms；Device Item Temperature001.PV 對應 400001。\", \"由 $DDESuiteLinkClient 建立測試 Client，Server node 127.0.0.1、Server name MBTCP、Protocol SuiteLink；新增 Topic2。\", \"建立 $UserDefined 實例 Temperature001，新增 Float 屬性 PV 並啟用 I/O。\", \"IO Devices 視圖將物件連到 Client 的 Topic2；Check-in，先部署 Client，再部署 Temperature001。\", \"Object Viewer 檢查 PV = 2048、Quality = C0:Good；改模擬值，再觀察是否同步。\"], \"tip\": \"127.0.0.1 只適用本機測試；Device Group 與 Topic 名稱必須相符。400001 的地址表示法須依 Driver 驗證。\", \"trouble\": \"Quality = Bad：依序檢查模擬器、port、Driver Activate、Topic2、Item Reference 與日誌。\", \"question\": \"OCMC Device Group 應與哪個名稱相同？\", \"options\": [\"Galaxy Topic\", \"Windows 帳號\", \"Graphic 名稱\"], \"answer\": 0, \"minutes\": 45}, {\"id\": \"redundancy\", \"group\": \"PLC 通訊\", \"title\": \"雙 Driver 備援\", \"subtitle\": \"分清楚「已連線」與「正在使用」。\", \"intro\": \"內部範例透過兩個 OI Server instance 與 RedundantDIObject 切換資料來源。同機雙 Driver 是通訊路徑練習，不能代表整台主機故障時仍可運作。\", \"steps\": [\"建立 OI.MBTCP_Back.1，複製 port、Topic2 與 Device Item 設定並 Activate。\", \"建立 DDESuiteLinkClient_002_P 與 _002_B；Server name 分別 MBTCP 與 MBTCP_Back。\", \"建立 RedundantDIObject_001，Primary／Backup DI source 指向上述完整實例名稱。\", \"Scan Group → Copy Common Scan Groups，選 Topic2；先部署兩個 Client，再部署備援物件。\", \"Undeploy Temperature001，重新連結 RedundantDIObject_001 的 Topic2，再 Deploy。\", \"Object Viewer 觀察 DISourceActive、DISourceStandby；在測試環境觸發 ForceFailoverCmd，確認 Active 改變與 PV 品質。\"], \"tip\": \"Connected 表示通道連上；DISourceActive 才表示目前採用哪個來源。\", \"trouble\": \"B 端 Disconnected：檢查 MBTCP_Back 名稱、Activate、Topic2、節點授權與 SuiteLink 加密錯誤。不要關閉安全設定來繞過錯誤。\", \"question\": \"哪個屬性可判斷目前資料來源？\", \"options\": [\"DISourceActive\", \"PV\", \"Description\"], \"answer\": 0, \"minutes\": 40}, {\"id\": \"script\", \"group\": \"腳本與維運\", \"title\": \"自動重連與日誌\", \"subtitle\": \"讓故障能重現，也能被驗證。\", \"intro\": \"此腳本取自內部教材。ConnectionStatus 的數值對應與 Reconnect 屬性，應先於目前版本 Object Viewer 與說明文件核對。\", \"steps\": [\"在測試 _002_P 新增 Reconnect 腳本。\", \"教材條件 Me.ConnectionStatus <> 2；先確認 2 在本機代表 Connected。\", \"Trigger type WhileTrue，Trigger period 00:00:05，Execution type Execute。\", \"程式內容：Me.Reconnect = true; 及 LogMessage(\\\"=====Reconnecting=====\\\");。\", \"Check-in、Deploy；測試 Driver Deactivate，觀察狀態與每五秒日誌。\", \"重新 Activate，確認 Connected、Good 品質與 PV 更新；持續重連則回查根因。\"], \"tip\": \"WhileTrue 是條件成立時週期執行；不等同資料變更事件。\", \"trouble\": \"只有日誌卻未恢復？確認 Driver 已啟動、網路可達、授權正常；重連腳本無法修正錯誤位址或安全設定。\", \"question\": \"重連成功應同時驗證什麼？\", \"options\": [\"只有日誌\", \"連線、品質與數值更新\", \"視窗顏色\"], \"answer\": 1, \"minutes\": 30}, {\"id\": \"intouch\", \"group\": \"圖控畫面\", \"title\": \"InTouch 狀態面板\", \"subtitle\": \"讓操作員一眼理解 Primary 與 Backup。\", \"intro\": \"依內部教材製作 Industrial Graphic 狀態燈與切換按鈕；本網站的互動面板為模擬，沒有連接公司設備。\", \"steps\": [\"Visualization 新增 Graphic，畫出 PLC_002、P／B 指示燈、State 文字與 Redundant 按鈕。\", \"燈號用 Fill Style Boolean，判斷 DISourceActive 是否等於對應 Client 的完整名稱。\", \"Value Display 綁定狀態屬性；教材此處為推測，須確認數值轉文字方式。\", \"按鈕 Action Script 建議設定 RedundantDIObject_001.ForceFailoverCmd = true;，確認權限與本機屬性後才測試。\", \"Check-in Graphic，在測試 InTouch 視窗放入圖形；內部範例入口為 TestArea > CpuMonitor。\", \"執行並驗證燈號、狀態文字、切換結果及斷線品質，避免把紅綠燈當作唯一判斷。\"], \"tip\": \"Industrial Graphic 是可重用畫面元件；動畫是資料與外觀之間的綁定。\", \"trouble\": \"畫面值不更新？先檢查物件參照、部署狀態與資料品質，再查 Graphic 綁定。\", \"question\": \"綠燈代表什麼（此教材設計）？\", \"options\": [\"目前 Active 來源\", \"保證 PLC 正常\", \"歷史資料已寫入\"], \"answer\": 0, \"minutes\": 40}, {\"id\": \"alarm\", \"group\": \"告警與歷史\", \"title\": \"Alarm、Trend 與 History\", \"subtitle\": \"數值、品質、告警要一起看。\", \"intro\": \"PV 是目前值；Alarm 是符合條件時產生的事件；History 是歷史紀錄。以下為教學練習，告警門檻不代表現場設計。\", \"steps\": [\"在測試 PV 啟用 Limit alarms，教材範例 LoLo 10、Lo 25、Hi 75、HiHi 90。\", \"先將模擬值設 50，再提高至 80，觀察 Hi；提高至 95，觀察 HiHi。\", \"觀察觸發、確認與恢復的差異；Ack 不代表製程已恢復正常。\", \"啟用 History 前確認 Historian 服務、連線與授權；設定記錄策略後部署。\", \"以固定間隔改變模擬值，在 Trend 比對時間戳、工程單位與資料品質。\"], \"tip\": \"2048 是連線驗證原始值；若直接套 90 的上限會立即觸發告警，應先完成縮放與門檻設計。\", \"trouble\": \"無歷史值？從物件品質、History 設定、Historian 服務、時間同步與授權逐一檢查。\", \"question\": \"Ack 是否代表數值已恢復？\", \"options\": [\"是\", \"否\", \"一定會停止記錄\"], \"answer\": 1, \"minutes\": 30}, {\"id\": \"trouble\", \"group\": \"維運工具箱\", \"title\": \"故障排除與交接\", \"subtitle\": \"沿著資料流找出第一個異常點。\", \"intro\": \"建立可重現的問題紀錄：時間、版本、物件、錯誤訊息、預期結果、實際結果與已做動作。\", \"steps\": [\"PV 不動：先改模擬器，確認 OCMC 更新，再查 DI、物件品質、畫面參照。\", \"Watchdog 啟動逾時：查 Windows 事件 7000／7009 及 AVEVA 日誌，記錄相依服務狀態。\", \"唯讀查看 Get-Service -Name Watchdog_Service，不以 Running 當作整個系統正常的證明。\", \"改名或重新指派 I/O 前依內部流程 Undeploy；改後 Save、Check-in、Deploy。\", \"交接前備份 Galaxy、記錄版本與命名，保留故障前後日誌與驗證結果。\"], \"tip\": \"Log Viewer 提供 AVEVA 診斷訊息；Windows Event Viewer 補充作業系統及服務事件。\", \"trouble\": \"本教材不提供未經確認的正式主機位址、帳密或寫入現場設備操作。內部 SOP 仍需主管審核。\", \"question\": \"排錯最適合從哪裡開始？\", \"options\": [\"隨機重裝\", \"第一個異常的資料節點\", \"直接關閉防火牆\"], \"answer\": 1, \"minutes\": 20}] import {lessonVisuals} from './visuals.js';\nconst lessons=await fetch('lessons.json').then(r=>r.json());\n// Model: lesson repository and local learning state; View: render functions; Controller: route and events.\nconst Model={lessons,done:JSON.parse(localStorage.getItem('fmcs-done')||'[]')};\nconst $=s=>document.querySelector(s);let current=0;\nconst esc=s=>s.replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]));\nfunction nav(filter=''){let group='';$('#nav').innerHTML=lessons.filter(l=>(l.title+l.intro+l.steps.join('')).toLowerCase().includes(filter.toLowerCase())).map(l=>{let h=l.group!==group?`<small>${esc(l.group)}</small>`:'';group=l.group;return h+`<a href=\"#${l.id}\" class=\"${lessons[current]===l?'active':''}\"><span>${Model.done.includes(l.id)?'✓':String(lessons.indexOf(l)+1).padStart(2,'0')}</span>${l.title}</a>`}).join('')||'<p>沒有符合的課程</p>';$('#progressText').textContent=`已完成 ${Model.done.length} / ${lessons.length} 課程`;$('#progressBar').style.width=Model.done.length/lessons.length*100+'%'}\nfunction render(){let id=location.hash.slice(1)||'start';if(id==='sources'){sources();return}current=Math.max(0,lessons.findIndex(l=>l.id===id));const l=lessons[current];nav($('#search').value);$('#main').innerHTML=`<div class=\"crumb\">學習中心　 /　System Platform　 /　${l.group}</div><div class=\"eyebrow\">LESSON ${String(current+1).padStart(2,'0')} · ${l.group}</div><h1>${l.title}</h1><div class=\"subtitle\">${l.subtitle}</div><div class=\"meta\"><span class=\"pill\">入門實作</span><span>◷ 約 ${l.minutes} 分鐘</span><span>2023 R2 SP1 P03</span></div><section class=\"intro\" id=\"overview\"><b>這一課，你會學到什麼？</b><p>${l.intro}</p></section>${[\"start\",\"template\"].includes(l.id)?physicalIllustration():\"\"}${lessonVisuals(l.id)}<h2 id=\"steps\">逐步操作</h2>${l.steps.map((s,i)=>`<div class=\"step\"><span>${i+1}</span><p>${esc(s)}</p></div>`).join('')}<div class=\"tip\"><b>IT 人的理解方式 / 操作提醒</b><br>${l.tip}</div><h2 id=\"lab\">動手試試看</h2><div class=\"lab\"><div class=\"lab-head\"><span>PLC 通訊與備援互動面板</span><span>● 瀏覽器模擬</span></div><div class=\"lab-body\"><div class=\"monitor\"><div><small>Temperature001.PV</small><strong id=\"pv\">50.0</strong></div><div><small>QUALITY</small><div id=\"quality\"><i class=\"lamp\"></i>C0:Good</div></div><div><small>ACTIVE SOURCE</small><div id=\"active\">Primary</div></div><div><small>LIMIT ALARM</small><div id=\"alarm\">Normal</div></div></div><div class=\"lab-controls\"><label for=\"range\">模擬 PV</label><input type=\"range\" id=\"range\" min=\"0\" max=\"100\" value=\"50\"><button id=\"switch\">切換備援</button><button id=\"disconnect\">模擬斷線</button></div><p class=\"caption\">調高到 75 以上觀察告警，模擬斷線觀察品質。操作不會寫入 PLC。</p></div></div><h2 id=\"quiz\">檢查你的理解</h2><div class=\"quiz\"><b>${l.question}</b>${l.options.map((o,i)=>`<button data-answer=\"${i}\">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}<div class=\"feedback\" aria-live=\"polite\" id=\"feedback\"></div></div><h2 id=\"trouble\">卡住了？先檢查這裡</h2><div class=\"trouble\">${l.trouble}</div><div class=\"sources\"><b>資料依據與版本</b><p>內部：AVEVA_PLC_InTouch_操作步驟教學，第 3–26 頁；AVEVAApplicationServer_2023_RevA_Presentation。AHU 範例為教學設計。<a href=\"#sources\">查看官方來源與版本說明 ↗</a></p></div><div class=\"bottom\">${current?`<a href=\"#${lessons[current-1].id}\">← 上一課</a>`:'<span></span>'}<button class=\"primary\" id=\"complete\">${Model.done.includes(l.id)?'✓ 已完成本課':'標記已完成 ✓'}</button>${current<lessons.length-1?`<a href=\"#${lessons[current+1].id}\">下一課 →</a>`:'<a href=\"#start\">返回起點</a>'}</div>`;\nlet connected=true,backup=false;const update=()=>{let v=+$('#range').value;$('#pv').textContent=connected?v.toFixed(1):'—';$('#quality').textContent=connected?'● C0:Good':'● 00:Bad';$('#alarm').textContent=!connected?'資料無效':v>=90?'HiHi':v>=75?'Hi':v<=10?'LoLo':v<=25?'Lo':'Normal'};$('#range').oninput=update;$('#switch').onclick=()=>{$('#active').textContent=(backup=!backup)?'Backup':'Primary'};$('#disconnect').onclick=()=>{connected=!connected;$('#disconnect').textContent=connected?'模擬斷線':'恢復連線';update()};document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{$('#feedback').textContent=+b.dataset.answer===l.answer?'✓ 正確！請繼續完成實作並記錄結果。':`再想想：${l.tip}`});$('#complete').onclick=()=>{if(!Model.done.includes(l.id))Model.done.push(l.id);localStorage.setItem('fmcs-done',JSON.stringify(Model.done));$('#complete').textContent='✓ 已完成本課';nav($('#search').value)};$('#sidebar').classList.remove('open');window.scrollTo(0,0)}\nfunction sources(){$('#main').innerHTML=`<div class=\"eyebrow\">REFERENCE LIBRARY</div><h1>教材來源與維護說明</h1><p>內容以提供的內部教材與 AVEVA 官方文件交叉整理。未取得公司即時系統與正式 SOP；不宣稱已完成公司內網串接。</p><h2>官方文件</h2><p><a href=\"https://docs.aveva.com/category/system-platform\" target=\"_blank\" rel=\"noopener\">AVEVA System Platform 文件入口 ↗</a></p><p><a href=\"https://docs.aveva.com/bundle/system-platform/page/1253915.html\" target=\"_blank\" rel=\"noopener\">Application Server 與 Galaxy 架構 ↗</a></p><p><a href=\"https://docs-be.aveva.com/bundle/sp-getstarted-2023-r2/raw/resource/enus/sp-getstarted-2023-r2.pdf\" target=\"_blank\" rel=\"noopener\">2023 R2 Get Started（PDF）↗</a></p><p><a href=\"https://docs-be.aveva.com/bundle/sp-deployment-2023-r2/raw/resource/enus/sp-deployment-2023-r2.pdf\" target=\"_blank\" rel=\"noopener\">2023 R2 Deployment（PDF）↗</a></p><div class=\"tip\">官方入口可能顯示更新的 SP2 或 P04。目標環境為 SP1 P03，實際選單與功能須以安裝版本內建 Help、版本相符文件及宇辰審核結果為準。</div><h2>內部教材</h2><p>AVEVAApplicationServer_2023_RevA_Presentation.txt；兩份同名 PLC / InTouch 操作簡報內容相同，合併為單一課程來源。教材標為推測與建議的部分已保留待確認狀態。</p><h2>MVC 維護</h2><p>下載 ASP.NET Core MVC 原始碼：Controllers 處理課程路由、Models 定義資料、Services 讀取 JSON、Views 顯示 Razor 頁面。課程保存在 Data/lessons.json。線上閱讀版使用相同課程資料與獨立 JS / CSS。</p><a class=\"source-download\" href=\"mvc-source.zip\">↓ 下載 MVC 專案與部署說明</a><h2>學習紀錄</h2><p>完成度僅儲存在本瀏覽器 localStorage，沒有公司帳號或多人同步；清除瀏覽器資料後會重設。</p>`;window.scrollTo(0,0)}\nwindow.addEventListener('hashchange',render);$('#search').oninput=e=>nav(e.target.value);$('#menu').onclick=()=>$('#sidebar').classList.toggle('open');$('#theme').onclick=()=>{document.body.classList.toggle('dark');localStorage.setItem('fmcs-dark',document.body.classList.contains('dark'))};if(localStorage.getItem('fmcs-dark')==='true')document.body.classList.add('dark');document.querySelectorAll('[data-scroll]').forEach(a=>a.onclick=e=>{e.preventDefault();document.getElementById(a.dataset.scroll)?.scrollIntoView()});render();\n\nfunction physicalIllustration(){return `<section class=\"equipment-explainer\"><h2>先認識現場：AHU、感測器與監控主機</h2><figure><img class=\"equipment-img\" src=\"assets/ahu-illustration.png\" alt=\"工廠空氣處理機概念插圖，包含風管、風機、溫度感測器、PLC 控制箱與監控畫面。\" loading=\"lazy\"><figcaption>AI 生成的設備概念插圖，不是實際廠區照片，也不表示設備接線配置。</figcaption><button type=\"button\" class=\"zoom-figure\" data-figure=\"assets/ahu-illustration.png\" data-title=\"AHU 設備概念插圖\">＋ 放大設備插圖</button></figure><div class=\"visual-key\"><p><b>AHU 空氣處理機</b><br>處理與輸送空氣，包含濾網、盤管、風機等組件。</p><p><b>感測器 → PLC</b><br>感測器量測狀態；PLC 讀取訊號，再提供給上位監控系統。</p><p><b>監控畫面</b><br>InTouch 顯示設備值、狀態與告警；此插圖僅供理解。</p></div></section>`;}\n// Reader controls and image viewing are shared across lesson routes.\nlet readSize=Number(localStorage.getItem('fmcs-read-size')||19);\nif(![19,21,23].includes(readSize)) readSize=19;\nconst applyReadSize=()=>{document.documentElement.style.setProperty('--reading-size',readSize+'px');document.getElementById('font-state').textContent=readSize+'px';localStorage.setItem('fmcs-read-size',readSize);};\ndocument.getElementById('font-down').onclick=()=>{readSize=Math.max(19,readSize-2);applyReadSize()};\ndocument.getElementById('font-up').onclick=()=>{readSize=Math.min(23,readSize+2);applyReadSize()};\napplyReadSize();\nconst figureDialog=document.getElementById('figure-dialog');let imageOpener;\ndocument.addEventListener('click',e=>{const b=e.target.closest('[data-figure]');if(!b)return;imageOpener=b;const img=document.getElementById('dialog-image');img.src=b.dataset.figure;img.alt=b.dataset.title;document.getElementById('dialog-title').textContent=b.dataset.title;document.getElementById('original-image').href=b.dataset.figure;figureDialog.showModal();});\ndocument.getElementById('close-figure').onclick=()=>figureDialog.close();\nfigureDialog.addEventListener('close',()=>imageOpener?.focus());\n export const visuals = {\n  \"start\": {\n    \"title\": \"FMCS 是怎麼工作的？\",\n    \"desc\": \"現場設備經通訊及 Galaxy 處理後提供圖控與歷史；IT 依值、品質及日誌排錯。\"\n  },\n  \"galaxy\": {\n    \"title\": \"Galaxy、IDE、執行環境：三件不同的事\",\n    \"desc\": \"IDE 編輯 Galaxy；Galaxy 設定部署到 WinPlatform 與 AppEngine，AppEngine 執行 AHU 實例。Area 是邏輯分組。\"\n  },\n  \"template\": {\n    \"title\": \"一份模板，建立多台 AHU 實例\",\n    \"desc\": \"共用模板建立 AHU_001、AHU_002，各有自己的屬性值。\"\n  },\n  \"plc\": {\n    \"title\": \"追蹤一筆 PLC 資料：400001 → PV\",\n    \"desc\": \"Modbus 模擬器經 OI MBTCP Driver、SuiteLink Client 傳入 Temperature001.PV。\"\n  },\n  \"redundancy\": {\n    \"title\": \"雙 Driver 備援：兩條路徑，一個 Active\",\n    \"desc\": \"Primary 與 Backup Client 接至 RedundantDIObject，由其選擇 Active 來源。此同機測試不是主機級備援。\"\n  },\n  \"script\": {\n    \"title\": \"重連腳本：先判斷，再嘗試，再驗證\",\n    \"desc\": \"連線正常時監看；斷線依觸發週期提出重連，恢復後驗證品質與更新。\"\n  },\n  \"intouch\": {\n    \"title\": \"畫面上兩種不同資訊，不要混在一起\",\n    \"desc\": \"Active 狀態決定選用來源；ConnectionStatus 與 PV 品質表示通訊與資料有效性。\"\n  },\n  \"alarm\": {\n    \"title\": \"同一個 PV，三種不同用途\",\n    \"desc\": \"即時值顯示、超限告警與歷史記錄是不同功能；Ack 不代表數值恢復。\"\n  },\n  \"trouble\": {\n    \"title\": \"用資料流定位故障：從哪裡開始不更新？\",\n    \"desc\": \"比較模擬器、Object Viewer 與圖控畫面，定位第一個不更新的節點。\"\n  }\n};\nexport function lessonVisuals(id) {\n const v=visuals[id];\n return `<section class=\"visual-section\" id=\"flow\"><div class=\"visual-heading\"><div><span class=\"eyebrow\">先看圖，再看操作</span><h2>${v.title}</h2></div><span class=\"diagram-badge\">本課專用圖解</span></div><figure><div class=\"figure-scroll\"><img src=\"assets/${id}-diagram.svg\" alt=\"${v.desc}\" loading=\"lazy\" width=\"1000\" height=\"680\"></div><figcaption>${v.desc}</figcaption><button type=\"button\" class=\"zoom-figure\" data-figure=\"assets/${id}-diagram.svg\" data-title=\"${v.title}\">＋ 放大流程圖</button></figure><p class=\"figure-help\">手機可左右滑動看完整圖，或點「放大」檢視。圖中文字另有下方說明可閱讀。</p><h3>操作畫面，先找這兩個位置</h3><figure><div class=\"figure-scroll\"><img src=\"assets/${id}-screen.svg\" alt=\"${v.title}操作定位示意：左側找到物件，右側核對設定欄位。非真實軟體截圖。\" loading=\"lazy\" width=\"1000\" height=\"620\"></div><figcaption>① 左側：找到物件或視圖。② 右側：核對設定。這是教學畫面示意，實際介面依安裝版本為準。</figcaption><button type=\"button\" class=\"zoom-figure\" data-figure=\"assets/${id}-screen.svg\" data-title=\"操作定位示意\">＋ 放大操作示意</button></figure></section>`;\n}\n",
-    "source": "yuchen-fmcs-academy-jason"
-  },
-  {
-    "id": "intouch",
-    "title": "InTouch 圖控教學",
-    "description": "從 WindowMaker、AHU 圖形與數值綁定，到狀態、警報及 WindowViewer 驗收。",
-    "level": "圖控",
-    "duration": "8 步驟",
-    "path": "courses/intouch/index.html",
-    "sections": [
-      {
-        "title": "先在 Object Viewer 確認資料",
-        "anchor": "prepare"
-      },
-      {
-        "title": "建立受管理的 InTouch 應用",
-        "anchor": "application"
-      },
-      {
-        "title": "用 WindowMaker 規劃一張 AHU 畫面",
-        "anchor": "window"
-      },
-      {
-        "title": "建立可重用 Industrial Graphic",
-        "anchor": "graphic"
-      },
-      {
-        "title": "把溫度數值綁到正確 Attribute",
-        "anchor": "binding"
-      },
-      {
-        "title": "讓風機燈號與資料品質分開呈現",
-        "anchor": "status"
-      },
-      {
-        "title": "加入警報與歷史趨勢的閱讀入口",
-        "anchor": "alarms"
-      },
-      {
-        "title": "在 WindowViewer 驗收畫面",
-        "anchor": "verify"
-      }
-    ],
-    "search": "      InTouch 圖控教學｜AHU 監控畫面        INTOUCH GRAPHICS · STEP BY STEP  做一張看得懂的 AHU 監控畫面  沿用現有 AVEVA 圖文教材，從資料驗證、WindowMaker 編輯與圖形綁定，到 WindowViewer 驗收。每一步都有相關軟體畫面，可點擊放大。   本路線：System Platform 受管理 InTouch  獨立式 InTouch 的 Tagname Dictionary／Access Name 與受管理應用的 Galaxy 參照，設定路線不同。先確認自己的應用類型，再跟著操作。截圖保留來源名稱與數值，部分來自舊版手冊，並非目前專案的設定值。    01　先在 Object Viewer 確認資料  02　建立受管理的 InTouch 應用  03　用 WindowMaker 規劃一張 AHU 畫面  04　建立可重用 Industrial Graphic  05　把溫度數值綁到正確 Attribute  06　讓風機燈號與資料品質分開呈現  07　加入警報與歷史趨勢的閱讀入口  08　在 WindowViewer 驗收畫面    STEP 01  先在 Object Viewer 確認資料       AVEVA Object Viewer 手冊，2020，PDF p.10，舊版介面。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   準備一台測試 AHU，列出送風溫度、風機運轉、故障、來源狀態與品質。  在 IDE 的 Object Viewer 觀察測試物件，記錄每個 Attribute 的完整參照。  改變模擬來源，確認數值、品質與更新時間同步變化。    完成時應看到  Object Viewer 與來源數值一致，且能分辨無效或停止更新的資料。    常見問題與提醒  畫面有數字不代表通訊正常；先把資料路徑驗證成功，再做圖控。       STEP 02  建立受管理的 InTouch 應用       AVEVA InTouch Application Management，2020，PDF p.56，解析度設定。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   本路線以 System Platform 的受管理 InTouch 應用為主。先確認測試 Galaxy、ViewEngine 與授權。  在 IDE 找到 InTouchViewApp 範本與測試實例，使用精靈建立應用並選擇目標解析度。  若選 InTouchView Application，外部資料來源使用 Application Server 參照；不要混用獨立式專案設定。    完成時應看到  能從 IDE 開啟對應應用的 WindowMaker，應用名稱與部署位置符合測試規劃。    常見問題與提醒  截圖包含舊版介面與範例名稱；請以安裝版本的精靈和 Help 為準。       STEP 03  用 WindowMaker 規劃一張 AHU 畫面       AVEVA InTouch HMI Getting Started，PDF p.47，Galaxy 參照範例。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   WindowMaker 是編輯環境；WindowViewer 是執行環境。從 IDE 維護受管理應用。  新增測試視窗，例如 AHU_Overview；依現有專案規範設定視窗大小與開啟方式。  先安排標題、設備、數值、品質、警報與狀態區；保留足夠字級與單位。    完成時應看到  測試視窗能開啟，文字、單位、設備名稱與狀態區可清楚辨識。    常見問題與提醒  圖中的 Reactor 等名稱來自來源教材，並非你的 AHU 點位。       STEP 04  建立可重用 Industrial Graphic       相關 AVEVA 軟體畫面，沿用 Modbus 與備援圖文教材；介面依版本不同。。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   在 IDE 的圖形工作區建立測試用 Industrial Graphic；以風機、管路、溫度與狀態文字組成 AHU 面板。  先使用固定文字與簡單形狀確認版面，再逐一加入資料動畫。  將圖形放入測試 InTouch 視窗；共用外觀應沿用現有範本，設備參照依各實例設定。    完成時應看到  同一圖形可依設備參照重用，不需要複製整套畫面再逐一改文字。    常見問題與提醒  編輯圖形與執行畫面是不同階段；尚未綁定的符號只是靜態圖。       STEP 05  把溫度數值綁到正確 Attribute       AVEVA InTouch HMI Getting Started，PDF p.47，Galaxy 參照範例。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   選取要顯示數值的圖形或文字，開啟相應的顯示動畫設定。  透過 Galaxy Browser 選取第 1 步驗證過的實際 Attribute 完整參照，避免只憑名稱手打。  設定小數位及單位。回到測試來源改變數值，逐一比對來源、Object Viewer 與畫面。    完成時應看到  三處數值一致，縮放與單位正確，沒有誤綁到另一台設備。    常見問題與提醒  單位字樣不會自動替你做工程值換算；縮放位置必須與點位表一致。       STEP 06  讓風機燈號與資料品質分開呈現       AVEVA InTouch HMI Getting Started，PDF p.43，Reactor 範例非 AHU。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   將風機的運轉 Boolean 綁定到對應的填色或狀態動畫；使用文字同時標示運轉、停止或故障。  另設資料品質與來源狀態區。主／備用來源是否 Active，與 PLC 是否可達，是不同訊息。  只在隔離的測試來源模擬運轉、故障與斷線，逐一記錄畫面反應。    完成時應看到  畫面能分辨「停止但資料正常」與「失聯、狀態未知」，不只依靠紅綠色判斷。    常見問題與提醒  舊值仍存在時，不應持續呈現成有效即時值；品質判斷依實際屬性與版本設定。       STEP 07  加入警報與歷史趨勢的閱讀入口       AVEVA InTouch HMI Getting Started，PDF p.27，本機 Tag 警報參考。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   先在設備 Attribute 與相關服務確認測試警報條件、優先度及歷史收集規劃。  在圖控加入警報與趨勢的顯示入口，選取正確設備範圍、點位與查詢時段。  測試警報觸發、恢復與確認；再用不同時間範圍檢查歷史趨勢與缺值。    完成時應看到  警報點位與時間正確，恢復和確認可區分；歷史查詢讀到已收集的資料。    常見問題與提醒  只放一個趨勢元件不會自動建立 Historian 收集；畫面正常也不代表歷史入庫正常。       STEP 08  在 WindowViewer 驗收畫面       AVEVA InTouch HMI Getting Started，PDF p.43，Reactor 範例非 AHU。點圖放大；圖中的物件名稱須替換成你的測試設備。    跟著做   儲存並依專案流程 Check-in 圖形及應用；核對測試節點、ViewEngine 與應用的部署狀態。  啟動對應測試應用的 WindowViewer，確認開啟的是本次更新版本。  依序驗證正常值、變動值、運轉、停止、故障、失聯、恢復、警報與趨勢，保存截圖與結果。    完成時應看到  每個點位、品質、單位、狀態與時間都通過核對，再依正式變更流程交付。    常見問題與提醒  本教學未實際部署你的 AVEVA 環境；按鈕命令、權限與 PLC 連鎖需要另行驗證。       接著操作既有互動教材   InTouch 狀態面板與瀏覽器模擬 →    5 個 InTouch 圖文步驟與可點擊欄位 →    警報與歷史資料圖文操作 →     官方文件與版本    Create a managed InTouch application    Open an application in WindowMaker and WindowViewer    Working with InTouch Tags（獨立式標籤觀念對照）    本網站不連接或控制現場設備。介面、動畫名稱與可用功能依版本、授權及應用類型不同，請以安裝版本 Help 與現場核准文件為準。     關閉 ×       ",
-    "source": "integrated-intouch-guide"
-  },
-  {
     "id": "mis",
-    "title": "AVEVA IT／MIS 圖文課",
-    "description": "從 C#、SQL 與 Windows 經驗理解工業監控。",
+    "title": "IT／MIS 系統整合與維運",
+    "description": "以既有平台基礎，進一步整理部署、資料、警報與維運。40 個主題包含前置觀念，可按需要回查。",
     "level": "進階",
     "duration": "40 主題",
     "path": "courses/mis/index.html",
@@ -388,74 +452,10 @@
     "source": "aveva-mis-learning"
   },
   {
-    "id": "ahu",
-    "title": "AHU 設備實作",
-    "description": "以一台空調箱串起點位、建模、警報與歷史資料。",
-    "level": "案例",
-    "duration": "8 步驟",
-    "path": "courses/ahu/index.html",
-    "sections": [
-      {
-        "title": "PLC 控制現場，AVEVA 讓資料可見。",
-        "anchor": "topic-1"
-      },
-      {
-        "title": "先看懂一台 AHU",
-        "anchor": "topic-2"
-      },
-      {
-        "title": "現場到畫面的資料路徑",
-        "anchor": "topic-3"
-      },
-      {
-        "title": "步驟 1：準備 PLC 點位表",
-        "anchor": "topic-4"
-      },
-      {
-        "title": "步驟 2：建立執行架構",
-        "anchor": "topic-5"
-      },
-      {
-        "title": "步驟 3：建立範本與實例",
-        "anchor": "topic-6"
-      },
-      {
-        "title": "步驟 4：接上通訊與 I/O",
-        "anchor": "topic-7"
-      },
-      {
-        "title": "步驟 5：建立操作畫面",
-        "anchor": "topic-8"
-      },
-      {
-        "title": "步驟 6：設定高溫警報",
-        "anchor": "topic-9"
-      },
-      {
-        "title": "步驟 7：設定歷史收集",
-        "anchor": "topic-10"
-      },
-      {
-        "title": "步驟 8：完成驗收與排錯",
-        "anchor": "topic-11"
-      },
-      {
-        "title": "溫度升高後，警報會怎麼變？",
-        "anchor": "topic-12"
-      },
-      {
-        "title": "檢查一下：設備歷史值主要存在哪裡？",
-        "anchor": "topic-13"
-      }
-    ],
-    "search": "AHU 實作教室｜AVEVA FMCS \n  FMCS / 實作教室   架構  課程  模擬  下載簡報 ↗    \n   AVEVA SYSTEM PLATFORM · IT / MIS  從一台空調箱， 看懂整個 FMCS。  以記憶體製造廠 AHU 為情境，跟著資料走一遍：從 PLC 讀值、設備建模，到畫面、警報與歷史。  開始實作課程   試試溫度模擬   10 節短課程  繁體中文  2023 R2 系列概念                濾網  盤管  風機   簡化設備示意。實際潔淨室另有 MAU、FFU 等系統。本教材為教學案例，未連接工廠設備。   \n  SYSTEM MAP  PLC 控制現場，AVEVA 讓資料可見。  讀值路徑依序為 01 至 04，再分別送到操作畫面與歷史服務。IDE 另將專案設定保存於 Galaxy SQL 資料庫。   01 感測器 溫度、壓差、風機回授   02 PLC 控制、連鎖與保護   03 OI Server 驅動與 SuiteLink 通訊   04 AppEngine AHU_001 設備物件   05 InTouch / OMI 即時畫面、警報與操作   06 Historian 歷史收集與趨勢查詢      資料  保存位置    範本、物件與設定  Galaxy Repository / SQL Server    溫度、壓差等歷史值  Historian / History Blocks    工單與每日彙總  自建 SQL 業務資料庫，需另行整合    \n   學習路線  0 / 10 已完成     01　先看懂一台 AHU  02　現場到畫面的資料路徑  03　步驟 1：準備 PLC 點位表  04　步驟 2：建立執行架構  05　步驟 3：建立範本與實例  06　步驟 4：接上通訊與 I/O  07　步驟 5：建立操作畫面  08　步驟 6：設定高溫警報  09　步驟 7：設定歷史收集  10　步驟 8：完成驗收與排錯      LESSON 01  先看懂一台 AHU  AHU 是空調箱，負責處理並輸送空氣。本案例以記憶體廠的空調服務區域為背景，先學一台設備。   送風溫度：18.5°C  區域溫度：23.0°C  風機運轉與故障回授  濾網壓差：150 Pa    驗收重點  能說出 PLC 控制、AVEVA 監看各自的責任。    我已理解這一節    LESSON 02  現場到畫面的資料路徑  本例採 PLC、OI Server、SuiteLink 與 DDESuiteLinkClient 連接路徑。   感測器提供溫度與壓差訊號  PLC 執行控制、連鎖與保護  OI Server 依 PLC 型號使用適用驅動  AppEngine 更新 AHU_001 的 Attribute    驗收重點  知道 PLC 品牌、通訊協定及驅動版本後，再設定連線。    我已理解這一節    LESSON 03  步驟 1：準備 PLC 點位表  點位表像 API 規格，先約定名稱、型別、方向與工程單位。   SupplyTemp／Float／讀取／°C  RoomTemp／Float／讀取／°C  FanRunning、FanFault／Boolean／讀取  FilterDP／Float／讀取／Pa  StartRequest／Boolean／寫入    驗收重點  本頁名稱為示意別名，實際 PLC 位址須由點位表確認。    我已理解這一節    LESSON 04  步驟 2：建立執行架構  在 IDE 的 Model 配置邏輯歸屬，在 Deployment 檢查執行位置。   WinPlatform：FMCS_Platform，對應執行電腦  AppEngine：FMCS_Engine，承載物件  Area：Cleanroom_HVAC，空調區域  DDESuiteLinkClient 實例：PLC_Client    驗收重點  確認引擎指派至正確 Platform，設備歸屬正確 Area。    我已理解這一節    LESSON 05  步驟 3：建立範本與實例  從 $UserDefined 衍生 $AHU_Template，再建立 AHU_001。   Templates：建立衍生範本  Attributes：新增溫度、壓差與狀態  設定型別與工程單位，先用內部模擬值  儲存並 Check-in，建立設備實例    驗收重點  Object Viewer 能讀到模擬值。第二台設備可沿用同一範本。    我已理解這一節    LESSON 06  步驟 4：接上通訊與 I/O  先證明 OI Server 能讀 PLC，再設定設備 Attribute 的輸入參照。   OI Server：設定裝置與通訊群組  PLC_Client：設定 Server、Topic 等適用欄位  AHU_001：將各屬性對應點位  Validate、Check-in，部署所需物件  Object Viewer：比對數值、時間與品質    驗收重點  PLC 23.0°C 與 AVEVA 相符；若為 230，確認縮放責任。    我已理解這一節    LESSON 07  步驟 5：建立操作畫面  使用已安裝且授權的 InTouch 或 OMI，綁定設備屬性。   數字元件：RoomTemp、SupplyTemp、FilterDP  風機圖示：綁定 FanRunning  故障指示：綁定 FanFault  資料品質不正常時，清楚顯示資料無效  先完成唯讀畫面，再於測試環境加入命令    驗收重點  畫面值與 Object Viewer 相符，通訊中斷不冒充正常。    我已理解這一節    LESSON 08  步驟 6：設定高溫警報  教學條件：溫度高於 25°C 持續 30 秒發報，回到 24.5°C 以下恢復。   在 RoomTemp 配置適用的高限警報  依版本設定延遲與回復死區  加入警報清單並驗證發生、確認及恢復  警報確認表示人員已知悉，不等於異常消失    驗收重點  所有門檻都是教學值，正式設定依設備及廠務規範。    我已理解這一節    LESSON 09  步驟 7：設定歷史收集  Galaxy SQL 存專案設定，Historian 保存設備時間序列。   在溫度與壓差屬性啟用 History  設定收集條件、死區與必要的強制儲存  AppEngine 設定 Historian 目的地  確認服務、授權、連線，再簽入部署  趨勢查詢檢查數值、時間戳記與品質    驗收重點  Historian 歷史值主要存在 History Blocks，備份要包含它們。    我已理解這一節    LESSON 10  步驟 8：完成驗收與排錯  一次只改一個條件，沿著資料流找到問題所在。   模擬 23°C 變 26°C，確認畫面更新  持續超限 30 秒，確認發報  確認警報後，降至 24.5°C 以下檢查恢復  查趨勢確認歷史值可追溯  斷開模擬通訊，確認品質無效提示    驗收重點  先讓單路通訊穩定，再加入 RedundantDIObject 主備來源。    我已理解這一節    \n  INTERACTIVE LAB · 模擬資料  溫度升高後，警報會怎麼變？  高於 25°C 持續 30 秒發報，低於 24.5°C 恢復。點「推進 10 秒」加速練習，不代表現場掃描週期。   區域溫度   推進 10 秒  確認警報    通訊連線  重設   23.0°C  正常／尚無高溫警報    模擬時間 0 秒。資料品質 Good。  \n  QUICK CHECK  檢查一下：設備歷史值主要存在哪裡？  Galaxy 的一般 SQL 資料表  Historian 的 History Blocks  IDE 編輯視窗    \n  使用範圍  本教材採簡化教學架構，非特定記憶體廠設計。溫度、壓差、警報門檻與點位別名都是範例。實際通訊欄位、授權與功能請依已安裝版本確認。學習進度保存在目前瀏覽器。  延伸與官方參考   AVEVA 半導體廠應用案例 ↗   System Platform 2023 R2 入門指南 ↗   Historian 2023 R2 文件 ↗ const $=id=>document.getElementById(id);let saved={};try{saved=JSON.parse(localStorage.getItem('ahuLessons')||'{}')}catch{};function progress(){let n=[...document.querySelectorAll('[data-lesson]')].filter(x=>x.checked).length;$('progress').value=n;$('progressText').textContent=`${n} / 10 已完成`;}document.querySelectorAll('[data-lesson]').forEach(x=>{x.checked=!!saved[x.dataset.lesson];x.onchange=()=>{saved[x.dataset.lesson]=x.checked;try{localStorage.setItem('ahuLessons',JSON.stringify(saved))}catch{}progress()}});progress();\nlet time=0,over=0,active=false,ack=false,history=[23];\nfunction advanceAlarm(temp,connected,seconds){if(!connected){over=0;return}if(temp>25){over+=seconds;if(over>=30&&!active){active=true;ack=false}}else{over=0;if(temp<24.5)active=false}}\nfunction render(){let t=Number($('temp').value),connected=$('connection').checked;$('reading').textContent=connected?`${t.toFixed(1)}°C`:'資料無效';let status=!connected?'通訊中斷：警報狀態可能過時，請查現場':active?`高溫警報／${ack?'已確認':'未確認'}${t>=24.5?'／條件未恢復':''}`:over>0?`超限累計 ${over} 秒／等待 30 秒發報`:ack?'警報已恢復／已確認':'正常／尚無高溫警報';$('alarmStatus').textContent=status;$('alarmStatus').classList.toggle('alarm',active||!connected);$('simDetail').textContent=`模擬時間 ${time} 秒。資料品質 ${connected?'Good':'Bad'}。確認警報不會降低溫度。`;$('ack').disabled=!active;draw()}\nfunction draw(){let c=$('trend'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);ctx.strokeStyle='#98674f';ctx.beginPath();ctx.moveTo(0,160-(25-20)*16);ctx.lineTo(1000,160-(25-20)*16);ctx.stroke();ctx.fillStyle='#c5dcd8';ctx.font='14px sans-serif';ctx.fillText('25°C 高溫門檻',12,70);ctx.strokeStyle='#8edcbb';ctx.lineWidth=3;ctx.beginPath();let pen=false;history.forEach((v,i)=>{if(v===null){pen=false;return}let x=20+i*960/Math.max(1,history.length-1),y=160-(v-20)*16;if(pen)ctx.lineTo(x,y);else ctx.moveTo(x,y);pen=true});ctx.stroke()}\n$('advance').onclick=()=>{time+=10;advanceAlarm(Number($('temp').value),$('connection').checked,10);history.push($('connection').checked?Number($('temp').value):null);if(history.length>50)history.shift();render()};$('temp').oninput=()=>{advanceAlarm(Number($('temp').value),$('connection').checked,0);render()};$('connection').onchange=()=>{advanceAlarm(Number($('temp').value),$('connection').checked,0);render()};$('ack').onclick=()=>{if(active)ack=true;render()};$('reset').onclick=()=>{time=0;over=0;active=false;ack=false;history=[23];$('temp').value=23;$('connection').checked=true;render()};document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{$('feedback').textContent=b.dataset.answer==='1'?'答對了。Historian 主要以 History Blocks 保存歷史值，SQL 介面提供查詢。':'再想一下：Galaxy 主要保存專案設定，設備歷史交給 Historian。'});render();\n",
-    "source": "ahu-fmcs-jason-learning"
-  },
-  {
     "id": "modbus",
     "title": "Modbus 與備援實畫教室",
     "description": "13 節、58 個圖文步驟，保留介面熱點與欄位說明。",
-    "level": "案例",
+    "level": "進階",
     "duration": "13 節課",
     "path": "courses/modbus/index.html",
     "sections": [

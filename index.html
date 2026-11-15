@@ -5,7 +5,7 @@
  <meta name="theme-color" content="#101e32">
  <meta name="description" content="FMCS 與 AVEVA 整合學習中心：從廠務基礎、平台操作到 AHU、Modbus 與通訊備援，集中閱讀圖文教材與互動練習。">
  <title>FMCS × AVEVA｜整合學習中心</title>
- <link rel="stylesheet" href="portal.css"><script src="portal.js" defer></script>
+ <link rel="stylesheet" href="portal.css?v=stages1"><script src="portal.js?v=stages1" defer></script>
 </head>
 <body>
  <a class="skip" href="#content">跳至主要內容</a>
@@ -25,10 +25,10 @@
   <main id="content" tabindex="-1">
    <div id="dashboard">
     <section class="hero">
-     <div><p class="eyebrow">FACILITY MONITORING · SYSTEM INTEGRATION</p><h1>從廠務現場，<br>走進 <em>AVEVA</em> 系統整合。</h1><p class="lead">把分散的 FMCS 與 AVEVA 教材放在同一個地方。從基礎觀念到實際介面，沿著資料流一步一步學。</p><div class="hero-actions"><a class="primary" href="#course/intro">開始學習 <span>→</span></a><a id="resume" href="#course/foundation">前往基礎課程 ↗</a></div><div class="hero-stats"><span><b>8</b>學習單元</span><span><b>6</b>既有網站整合</span><span><b>58</b>備援圖文步驟</span></div></div>
+     <div><p class="eyebrow">FACILITY MONITORING · SYSTEM INTEGRATION</p><h1>從廠務現場，<br>走進 <em>AVEVA</em> 系統整合。</h1><p class="lead">依「入門 → 基礎 → 進階」循序學習：先認識廠務監控，再建立設備與 InTouch 圖控能力，最後完成系統整合與備援驗證。</p><div class="hero-actions"><a class="primary" href="#course/intro">開始學習 <span>→</span></a><a id="resume" href="#course/foundation">前往基礎課程 ↗</a></div><div class="hero-stats"><span><b>8</b>學習單元</span><span><b>6</b>既有網站整合</span><span><b>58</b>備援圖文步驟</span></div></div>
      <div class="architecture" aria-label="感測器經 PLC、OI 與 SuiteLink，傳送至 AVEVA 及 InTouch 與歷史資料"><div class="diagram-top"><span class="live-dot"></span> 學習資料流 <span>DEMO</span></div><div class="flow-node"><small>01 · FIELD</small><b>感測器 / AHU</b><span>溫度 · 壓力 · 運轉狀態</span></div><div class="connector">↓</div><div class="flow-pair"><div class="flow-node"><small>02 · CONTROL</small><b>PLC</b><span>現場控制與訊號</span></div><span>→</span><div class="flow-node"><small>03 · CONNECT</small><b>OI / SuiteLink</b><span>採集與資料交換</span></div></div><div class="connector">↓</div><div class="flow-node accent"><small>04 · SUPERVISION</small><b>AVEVA System Platform</b><span>設備建模 → InTouch → 歷史資料</span></div><p>理解角色，再追蹤每一筆資料。</p></div>
     </section>
-    <section class="learning-section"><div class="section-heading"><div><p class="eyebrow">YOUR LEARNING PATH</p><h2>依序學，也能直接查。</h2></div><p>入門 → 基礎 → 平台 → 設備與備援</p></div><div id="course-cards" class="course-grid"></div></section>
+    <section class="learning-section"><div class="section-heading"><div><p class="eyebrow">YOUR LEARNING PATH</p><h2>三個階段，一步一步學。</h2></div><p>入門 → 基礎 → 進階</p></div><nav class="stage-jumps" aria-label="學習階段"><a href="#stage-1">01 入門</a><span>→</span><a href="#stage-2">02 基礎</a><span>→</span><a href="#stage-3">03 進階</a></nav><div id="course-cards"></div></section>
     <section class="note"><b>練習與實機的界線</b><p>網站中的數值、模擬與操作圖用於學習。實際點位、版本、授權及控制權限，請對照專案文件與現場 SOP。各單元保留原本的課程進度；資料儲存在目前瀏覽器。</p></section>
    </div>
    <section id="results" hidden aria-label="搜尋結果"><p class="eyebrow">SEARCH THE ACADEMY</p><h1>搜尋所有教材</h1><p id="result-count" role="status"></p><div id="result-list"></div></section>

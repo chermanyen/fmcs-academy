@@ -5,3 +5,5 @@
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
 #search-form button{flex-shrink:0;white-space:nowrap}
+
+.nav-stage h2{font-size:12px;letter-spacing:2px;color:#70cbb9;margin:20px 10px 9px}.nav-stage:first-child h2{margin-top:0}.stage-jumps{display:flex;gap:15px;align-items:center;flex-wrap:wrap;font-size:14px;margin:0 0 25px;color:#147b6c}.stage-jumps a{background:#e5f0ec;padding:8px 16px;border-radius:5px}.stage-section{margin-bottom:35px;scroll-margin-top:105px}.stage-heading{display:flex;gap:16px;align-items:center;border-top:1px solid #dce4e9;padding-top:25px}.stage-number{font-size:28px;color:#8aa59d;font-weight:700}.stage-heading h3{font-size:22px;margin:0}.stage-heading p{font-size:14px;color:#677c8f;margin:5px 0}.stage-ready{font-size:12px;color:#718393;margin:12px 0 18px}.stage-outcome{background:#e8f1ee;padding:15px 20px;border-left:3px solid #2a947e;font-size:13px;color:#43695f}.stage-section .course-card h3{font-size:17px}@media(max-width:480px){.stage-heading h3{font-size:19px}.stage-jumps{gap:8px;font-size:12px}.stage-jumps a{padding:8px 12px}}
