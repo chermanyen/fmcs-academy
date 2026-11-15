@@ -1,10 +1,78 @@
-# FMCS Academy
+# FMCS × AVEVA 整合學習中心
+
+統一網站：<https://chermanyen.github.io/fmcs-academy/>。2026-11-15 輕量整合版，沿用此儲存庫與 GitHub Pages 路徑。
+
+## 整合範圍
+
+| 單元 | 來源 | 內容位置 |
+| --- | --- | --- |
+| FMCS 入門 | fmcs-learning | courses/intro/ |
+| 12 週基礎與工程師任務 | 本機 FMCS Academy（含原有未發布工程師教材） | academy.html、js/ |
+| 新人實作與平台腳本 | fmcs-yuchen-academy | courses/onboarding/ |
+| System Platform 操作 | yuchen-fmcs-academy-jason | courses/platform/ |
+| InTouch 圖控教學 | 既有教材與官方文件整理 | courses/intouch/ |
+| AVEVA IT／MIS 圖文課 | aveva-mis-learning | courses/mis/ |
+| AHU 設備實作 | ahu-fmcs-jason-learning | courses/ahu/ |
+| Modbus 與備援實畫教室 | aveva-modbus-redundancy-lab | courses/modbus/ |
+
+六個 Sites 網站的靜態教材、圖片與原有下載檔案已複製至同一儲存庫；執行課程不需要登入 Sites 或連回原網站。外部參考來源連結仍保留。來源版本記錄在 `integration-sources.json`，圖片來源另保留在 `courses/modbus/image-sources.json`。
+
+此版將既有教材按入門、基礎、實作與案例編排到同一入口；相近章節保留在各自教學情境，不刪除原內容。首頁共八個單元，跨單元搜尋涵蓋靜態教材與課程資料，110 個章節標題可索引。來源網站維持原狀。
+
+## 統一入口與維護
+
+- `index.html`：左側課程目錄、頂部搜尋、中央閱讀區、底部單元切換。
+- `portal.js`：輕量 Model / View / Controller，讀取課程目錄、搜尋及 hash 路由。
+- `portal.css`：統一入口的 RWD，手機使用摺疊目錄。
+- `catalog.json`：八個單元的路徑、描述、章節與搜尋索引。改教材文字或新增章節時同步更新此檔。
+- `academy.html` 與 `js/`：保留基礎教材既有 MVC；`courses/` 保留其他來源教材的靜態結構。
+
+使用同來源 iframe 隔離不同教材原有的 DOM ID、CSS 與腳本，讓水箱、警報、備援、圖片熱點等既有功能保留。可用「全頁閱讀」直接開啟單元。課程深連結例：`#course/platform/galaxy`、`#course/modbus/topic-7`。
+
+學習進度保留各單元原有 storage key，入口另使用 `fmcsPortalResumeV1` 記錄最後閱讀單元。原 GitHub Pages 的 FMCS 進度可繼續讀取；原 Sites 網站與 GitHub 為不同來源，瀏覽器不會自動搬移原 Sites 的完成紀錄。沒有跨裝置同步。
+
+GitHub Pages 只執行靜態教材與瀏覽器模擬，不執行 ASP.NET、C# 或連接 PLC／內網。原 `mvc-source.zip` 作為既有下載教材保留，未宣稱其可在 Pages 執行，也未重新驗證其 .NET 建置。
+
+## 驗證與部署（PowerShell）
+
+網站不需建置；本機預覽及檢查：
+
+```powershell
+python -m http.server 49321 --bind 127.0.0.1
+# 開啟 http://127.0.0.1:49321/，Ctrl+C 停止
+```
+
+另開 PowerShell 執行：
+
+```powershell
+npm ci
+npm test
+git diff --check
+git diff --stat
+git diff
+```
+
+提交與部署（確認僅包含預期檔案後執行）：
+
+```powershell
+git add index.html academy.html portal.css portal.js catalog.json integration-sources.json .nojekyll courses/ js/ tests/ package.json package-lock.json README.md
+git commit -m "Integrate FMCS and AVEVA learning sites into one GitHub Pages academy"
+git push origin main
+gh run list --repo chermanyen/fmcs-academy --limit 3
+# main / (root) 已啟用 Pages，push 後自動部署。
+```
+
+自動測試涵蓋原有模型與互動，以及整合目錄、搜尋、章節深連結、單元切換、進度相容、儲存封鎖與載入失敗。整合時另外核對全部靜態本機連結與圖片路徑，並檢查桌面及手機版、System Platform 動態課程與備援圖片欄位說明。現場 AVEVA／PLC 操作仍未實機驗證。
+
+---
+
+# 原有 FMCS 基礎教材
 
 繁體中文、手機友善的 FMCS 廠務監控與系統整合學習網站。PLC 是現場控制基礎單元，課程主軸是從廠務設備、通訊採集走到監控與交付。沿用原生 JavaScript MVC，直接由既有 GitHub Pages 網址發布，不需建置、後端或付費依賴。
 
 ## 教學內容
 
-- 更新為 12 週 FMCS 課程、六題整合測驗、25 個整合術語及官方資源。
+- 更新為 12 週 FMCS 課程、十題整合測驗、32 個整合術語及官方資源。
 - 第 1–4 週：FMCS 架構、廠務系統、現場訊號與 PLC 控制。
 - 第 5–8 週：Modbus TCP／RTU、OPC UA、Tag／資料品質與 C# 採集。
 - 第 9–12 週：HMI／SCADA、警報與趨勢、SQL Server、FAT／SAT 與維運。
@@ -18,12 +86,27 @@
 - FMCS 模擬連動水箱，失聯時保留最後值並明確標記過期，恢復後更新。
 - 支援鍵盤、焦點提示、狀態文字及減少動態效果偏好。離開分頁會暫停自動演示。
 
+## FMCS 軟體設計工程師學習任務
+
+輕量版新增「工程師學習」入口，列出冷卻水、電力、空調三類案例的監控點、警報、趨勢及交付物。第 2／3／7–12 週加入工程師實作清單，重點包括：
+
+- 冷卻水溫度、壓力、流量與幫浦；電力 V／A／kW／kWh；空調溫濕度與風機狀態。
+- 警報上下限、延遲、遲滯、確認與恢復，以及歷史趨勢的多點位、時間區間與缺值規則。
+- PLC → C# Service → Repository → Dapper → SQL Server 的採集入庫流程、參數化寫入、交易與重試去重。
+- 用電／運轉／警報報表，或 latest／history／alarms 唯讀 API 的請求、回應、分頁與錯誤規格。
+
+這些新增項目是教材、草圖與文件練習，沒有新增執行中的 C#、SQL Server、報表產生器或 API，也沒有提供可下載的程式範例。課程週次及 `fmcsWeeksV1` 保持不變，現有 FMCS 與舊 PLC 進度均保留。已完成的學習者可自行展開各週複習新增清單。
+
+維護入口：`js/data/course-data.js` 的 `role` 是三類案例及交付成果，`practiceLists` 對應 12 週的實作清單；`js/views/learning-view.js` 負責呈現。沿用既有 MVC，不新增套件。
+
+參考文件：[SqlClient 參數](https://learn.microsoft.com/en-us/sql/connect/ado-net/configure-parameters)、[ASP.NET Core API 回傳型別](https://learn.microsoft.com/en-us/aspnet/core/web-api/action-return-types)。
+
 ## 檔案與進度相容
 
 採用原生 JavaScript MVC，沒有框架、建置程序或伺服器需求。SVG 由 View 建立，不下載外部資產。
 
 ```text
-index.html                         頁面骨架與腳本載入順序
+academy.html                       基礎教材骨架與腳本載入順序
 styles.css                         現有版型、手機樣式及動畫
 js/
 ├─ main.js                          建立 Model / View / Controller 並啟動
@@ -48,12 +131,12 @@ tests/
 - 改幫浦啟停、保持或掃描規則：改 `js/models/simulation-model.js`，執行 Model 測試。
 - 改文字、HTML、SVG 或狀態顯示：改對應 View；純樣式改 `styles.css`。
 - 改事件或自動播放頻率：改對應 Controller。Model 不操作 DOM 或計時器；View 不讀寫儲存、不綁定事件；Controller 協調兩者。
-- `js/main.js` 只做初始化。所有檔案使用同一個 `window.FMCSAcademy` 命名空間，以函式作用域隔離區域變數。`index.html` 的 `defer` 腳本依列出的順序執行，無須套件載入器。MVC 入口使用新檔名，避免舊版 `app.js` 的瀏覽器快取混用。
+- `js/main.js` 只做初始化。所有檔案使用同一個 `window.FMCSAcademy` 命名空間，以函式作用域隔離區域變數。`academy.html` 的 `defer` 腳本依列出的順序執行，無須套件載入器。MVC 入口使用新檔名，避免舊版 `app.js` 的瀏覽器快取混用。
 - 儲存與時鐘透過參數傳入，控制規則可獨立測試。Model 回傳狀態副本，View 不直接更動內部狀態。
 
 FMCS 課程進度使用 `localStorage.fmcsWeeksV1`（0–11 的週次陣列），在同一瀏覽器重載後保留。舊版 `plcWeeks` 只讀取以顯示「舊版 PLC 課程完成週數」，不覆寫、不遷移成 FMCS 進度；新課程從零開始。資料只留在本機，無痕視窗、清除網站資料或更換瀏覽器不會同步。儲存受限時仍可閱讀與操作。程式命名空間同步改為 `window.FMCSAcademy`。
 
-`index.html` 的腳本與樣式網址帶有 `v=fmcs1`，避免已瀏覽舊課程的使用者混用快取檔案。後續若修改資料格式或相互依賴的腳本，應一起更新版本標記；互動測試會按相同順序載入這些腳本。
+`academy.html` 的腳本與樣式網址帶有 `v=engineer1`，避免已瀏覽舊課程的使用者混用快取檔案。後續若修改資料格式或相互依賴的腳本，應一起更新版本標記；互動測試會按相同順序載入這些腳本。
 
 教材核對來源：[Modbus 官方規格](https://www.modbus.org/modbus-specifications)、[OPC UA DataValue](https://reference.opcfoundation.org/specs/OPC-10000-4/7.11)、[SQL Server datetime2](https://learn.microsoft.com/en-us/sql/t-sql/data-types/datetime2-transact-sql)。
 
@@ -86,7 +169,7 @@ git diff --check
 git diff
 git add -u
 git add index.html js/ README.md package.json tests/
-git commit -m "Refocus learning site on FMCS system integration"
+git commit -m "Add FMCS software engineer learning cases and practice checklists"
 git push origin main
 ```
 

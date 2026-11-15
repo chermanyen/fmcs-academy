@@ -1,0 +1,288 @@
+{
+  "plc-ip": {
+    "image": "plc-ip.png",
+    "label": "AVEVA MBTCP Driver 手冊，2023，PDF p.39",
+    "url": "https://cdn.logic-control.com/docs/aveva/communications-pack/OIMBTCP.pdf",
+    "box": [
+      0.04,
+      0.04,
+      0.86,
+      0.12
+    ]
+  },
+  "port": {
+    "image": "port.png",
+    "label": "AVEVA MBTCP Driver 手冊，2023，PDF p.11",
+    "url": "https://cdn.logic-control.com/docs/aveva/communications-pack/OIMBTCP.pdf",
+    "box": [
+      0.05,
+      0.17,
+      0.46,
+      0.08
+    ]
+  },
+  "oi-ip": {
+    "image": "oi-ip.png",
+    "label": "InSource 技術文章：MBTCP PLC Parameters，公開畫面",
+    "url": "https://insourcesolutions.helpjuice.com/aveva-communication-drivers-tech-notes/common-causes-of-oi-server-communication-issues",
+    "box": [
+      0.49,
+      0.31,
+      0.48,
+      0.09
+    ]
+  },
+  "groups": {
+    "image": "groups.png",
+    "label": "InSource 技術文章：MBTCP Device Groups，公開畫面",
+    "url": "https://insourcesolutions.helpjuice.com/aveva-communication-drivers-tech-notes/common-causes-of-oi-server-communication-issues",
+    "box": [
+      0.49,
+      0.32,
+      0.48,
+      0.23
+    ]
+  },
+  "activate": {
+    "image": "activate.png",
+    "label": "InSource 技術文章：Activate 通訊驅動，公開畫面",
+    "url": "https://insourcesolutions.helpjuice.com/aveva-communication-drivers-tech-notes/common-causes-of-oi-server-communication-issues",
+    "box": [
+      0.35,
+      0.43,
+      0.65,
+      0.22
+    ]
+  },
+  "topic": {
+    "image": "topic.png",
+    "label": "公開技術教材：DI Redundancy，Topic 頁，來源名稱不同",
+    "url": "https://gunnerabuzaki2.github.io/aveva-application-server/lessons/L30-DI-Redundancy.html",
+    "box": [
+      0.01,
+      0.4,
+      0.98,
+      0.4
+    ]
+  },
+  "rdi-general": {
+    "image": "rdi-general.png",
+    "label": "公開技術教材：DI Redundancy，General 頁，非你的環境",
+    "url": "https://gunnerabuzaki2.github.io/aveva-application-server/lessons/L30-DI-Redundancy.html",
+    "box": [
+      0.02,
+      0.45,
+      0.91,
+      0.48
+    ]
+  },
+  "common": {
+    "image": "common.png",
+    "label": "公開技術教材：Copy Common Scan Groups，非你的環境",
+    "url": "https://gunnerabuzaki2.github.io/aveva-application-server/lessons/L30-DI-Redundancy.html",
+    "box": [
+      0.04,
+      0.15,
+      0.9,
+      0.69
+    ]
+  },
+  "rdi-scan": {
+    "image": "rdi-scan.png",
+    "label": "公開技術教材：Scan Group，Topic1 為來源範例名",
+    "url": "https://gunnerabuzaki2.github.io/aveva-application-server/lessons/L30-DI-Redundancy.html",
+    "box": [
+      0.03,
+      0.42,
+      0.92,
+      0.5
+    ]
+  },
+  "deploy": {
+    "image": "deploy.png",
+    "label": "公開技術教材：Deployment 檢視，拓樸僅供參考",
+    "url": "https://gunnerabuzaki2.github.io/aveva-application-server/lessons/L30-DI-Redundancy.html",
+    "box": [
+      0.02,
+      0.02,
+      0.96,
+      0.96
+    ]
+  },
+  "attr": {
+    "image": "attr.png",
+    "label": "AVEVA Application Server 手冊，2020，PDF p.123，舊版介面",
+    "url": "https://cdn.logic-control.com/docs/aveva/hmi-scada/application-server/IDE.pdf",
+    "box": [
+      0.42,
+      0.08,
+      0.55,
+      0.45
+    ]
+  },
+  "io": {
+    "image": "io.png",
+    "label": "AVEVA Application Server 手冊，2020，PDF p.131，舊版介面",
+    "url": "https://cdn.logic-control.com/docs/aveva/hmi-scada/application-server/IDE.pdf",
+    "box": [
+      0.42,
+      0.39,
+      0.56,
+      0.59
+    ]
+  },
+  "values": {
+    "image": "values.png",
+    "label": "AVEVA Object Viewer 手冊，2020，PDF p.10，舊版介面",
+    "url": "https://cdn.logic-control.com/docs/aveva/hmi-scada/application-server/ObjectViewer.pdf",
+    "box": [
+      0.36,
+      0.13,
+      0.63,
+      0.62
+    ]
+  },
+  "history": {
+    "image": "history.png",
+    "label": "AVEVA Application Server 手冊，2020，PDF p.349，舊版介面",
+    "url": "https://cdn.logic-control.com/docs/aveva/hmi-scada/application-server/IDE.pdf",
+    "box": [
+      0.02,
+      0.5,
+      0.96,
+      0.48
+    ]
+  },
+  "history-engine": {
+    "image": "history-engine.png",
+    "label": "AVEVA Application Server 手冊，2020，PDF p.354，舊版介面",
+    "url": "https://cdn.logic-control.com/docs/aveva/hmi-scada/application-server/IDE.pdf",
+    "box": [
+      0.05,
+      0.2,
+      0.88,
+      0.62
+    ]
+  },
+  "alarms": {
+    "image": "alarms.png",
+    "label": "AVEVA InTouch HMI Getting Started，PDF p.27，本機 Tag 警報參考",
+    "url": "https://cdn.logic-control.com/media/AVEVA%20InTouch%20HMI%20-%20Getting%20Started%20Guide.pdf",
+    "box": [
+      0.02,
+      0.19,
+      0.96,
+      0.75
+    ]
+  },
+  "runtime": {
+    "image": "runtime.png",
+    "label": "AVEVA InTouch HMI Getting Started，PDF p.43，Reactor 範例非 AHU",
+    "url": "https://cdn.logic-control.com/media/AVEVA%20InTouch%20HMI%20-%20Getting%20Started%20Guide.pdf",
+    "box": [
+      0.05,
+      0.02,
+      0.9,
+      0.96
+    ]
+  },
+  "graphic-bind": {
+    "image": "graphic-bind.png",
+    "label": "AVEVA InTouch HMI Getting Started，PDF p.47，Galaxy 參照範例",
+    "url": "https://cdn.logic-control.com/media/AVEVA%20InTouch%20HMI%20-%20Getting%20Started%20Guide.pdf",
+    "box": [
+      0.47,
+      0.17,
+      0.51,
+      0.28
+    ]
+  },
+  "checkin": {
+    "image": "checkin.png",
+    "label": "AVEVA InTouch HMI Getting Started，PDF p.44，簽入視窗",
+    "url": "https://cdn.logic-control.com/media/AVEVA%20InTouch%20HMI%20-%20Getting%20Started%20Guide.pdf",
+    "box": [
+      0.02,
+      0.1,
+      0.96,
+      0.88
+    ]
+  },
+  "view-deploy": {
+    "image": "view-deploy.png",
+    "label": "AVEVA InTouch HMI Getting Started，PDF p.41，ViewEngine 範例",
+    "url": "https://cdn.logic-control.com/media/AVEVA%20InTouch%20HMI%20-%20Getting%20Started%20Guide.pdf",
+    "box": [
+      0.04,
+      0.25,
+      0.94,
+      0.6
+    ]
+  },
+  "intouch-wizard": {
+    "image": "intouch-wizard.png",
+    "label": "AVEVA InTouch Application Management，2020，PDF p.56，解析度設定",
+    "url": "https://cdn.logic-control.com/docs/aveva/hmi-scada/intouch/ITAppManagement.pdf",
+    "box": [
+      0.03,
+      0.12,
+      0.94,
+      0.65
+    ]
+  },
+  "ide": {
+    "image": "ide.png",
+    "label": "使用者提供：System Platform IDE 全覽",
+    "url": null,
+    "box": [
+      0.02,
+      0.02,
+      0.96,
+      0.96
+    ]
+  },
+  "model": {
+    "image": "model.png",
+    "label": "使用者提供：Model 設備與通訊物件",
+    "url": null,
+    "box": [
+      0.02,
+      0.02,
+      0.96,
+      0.96
+    ]
+  },
+  "suite": {
+    "image": "suite.png",
+    "label": "使用者提供：DDESuiteLinkClient General",
+    "url": null,
+    "box": [
+      0.02,
+      0.02,
+      0.96,
+      0.96
+    ]
+  },
+  "rdi": {
+    "image": "rdi.png",
+    "label": "使用者提供：RedundantDIObject Object Information",
+    "url": null,
+    "box": [
+      0.02,
+      0.02,
+      0.96,
+      0.96
+    ]
+  },
+  "templates": {
+    "image": "templates.png",
+    "label": "使用者提供：InTouchViewApp Templates",
+    "url": null,
+    "box": [
+      0.02,
+      0.02,
+      0.96,
+      0.96
+    ]
+  }
+}

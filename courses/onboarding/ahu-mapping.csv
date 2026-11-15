@@ -1,0 +1,4 @@
+﻿設備,Attribute,Data Type,Engineering Unit,練習初值,邏輯來源示意,實際來源 NodeId,實際 AVEVA InputSource,畫面參照
+AHU001,SupplyTemp,Float,°C,24,Simulation.AHU001.Temperature,,,AHU001.SupplyTemp
+AHU001,ReturnTemp,Float,°C,27,Simulation.AHU001.ReturnTemperature,,,AHU001.ReturnTemp
+AHU001,FanRun,Boolean,,True,Simulation.AHU001.FanRun,,,AHU001.FanRun

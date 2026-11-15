@@ -5,7 +5,7 @@ const assert = require("node:assert/strict");
 const root = path.resolve(__dirname, "..");
 function load(saved = "[0,3,11]", blocked = false, legacy = "[0,5]") {
   const dom = new JSDOM(
-    fs.readFileSync(path.join(root, "index.html"), "utf8"),
+    fs.readFileSync(path.join(root, "academy.html"), "utf8"),
     {
       url: "https://chermanyen.github.io/fmcs-academy/",
       runScripts: "outside-only",
@@ -44,6 +44,9 @@ const $ = (s) => d.querySelector(s);
 const click = (s) => $(s).click();
 assert.equal(d.querySelectorAll("#lessons details").length, 12);
 assert.equal(d.querySelectorAll(".lesson-visual").length, 12);
+assert.equal(d.querySelectorAll("#engineer article").length, 3);
+assert.match($("#week-8").textContent, /參數化/);
+assert.match($("#week-11").textContent, /GET \/api\/tags\/history/);
 assert.equal($("#progress").value, 3);
 const detail = $("#lessons details");
 detail.open = true;
@@ -147,6 +150,8 @@ click('[data-q="0"][data-a="0"]');
 assert.match($("#score").textContent, /1 \/ 1/);
 click('[data-q="0"][data-a="1"]');
 assert.match($("#score").textContent, /0 \/ 1/);
+click('[data-q="9"][data-a="1"]');
+assert.match($("#feedback9").textContent, /答對/);
 $("#search").value = "modbus";
 $("#search").dispatchEvent(new w.Event("input"));
 assert($("#dictionary").textContent.includes("Modbus"));
@@ -168,7 +173,7 @@ assert.equal(legacyOnly.w.localStorage.getItem("plcWeeks"), "[0,5]");
 assert.equal(load('[0,0,99,"1",2]').d.querySelector("#progress").value, 2);
 assert.equal(
   load("[]", true).d.querySelectorAll("#questions .quiz-item").length,
-  6,
+  10,
 );
 const ids = [...d.querySelectorAll("[id]")].map((e) => e.id);
 assert.equal(new Set(ids).size, ids.length);

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>FMCS Academy｜廠務監控與系統整合學習</title>
+    <link rel="stylesheet" href="styles.css?v=engineer1" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳至主要內容</a>
+    <header>
+      <strong>⚙ FMCS Academy</strong>
+      <nav aria-label="主要導覽">
+        <a href="#engineer">工程師學習</a><a href="#fmcs">監控示例</a
+        ><a href="#hardware">現場圖解</a><a href="#roadmap">12 週課程</a
+        ><a href="#sim">互動實驗</a><a href="#quiz">測驗</a
+        ><a href="#terms">術語</a><a href="#resources">資源</a>
+      </nav>
+    </header>
+    <main id="main">
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="pill">繁體中文 · 零基礎 · 免費學習</span>
+          <h1>從廠務設備到 FMCS 系統整合</h1>
+          <p>
+            以 FMCS
+            軟體設計工程師的工作為目標，學習冷卻水、電力、空調監控、設備警報與歷史趨勢，串接
+            PLC、C#、SQL Server，再規劃報表或 API。每週 6 小時，12
+            週完成整合觀念與文件實作。
+          </p>
+          <a
+            class="button"
+            href="#roadmap"
+            style="display: inline-block; text-decoration: none"
+            >開始學習</a
+          >
+          <a class="hero-link" href="#engineer">查看工程師學習任務 →</a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="rack-label">FACILITY MONITORING & INTEGRATION</div>
+          <div class="rack">
+            <div class="module power"><i></i>I/O<small>現場訊號</small></div>
+            <div class="module cpu">
+              <i></i>PLC<small>設備控制</small>
+              <div class="vents"></div>
+            </div>
+            <div class="module"><i></i>DATA<small>資料採集</small></div>
+            <div class="module"><i></i>FMCS<small>監控整合</small></div>
+          </div>
+          <div class="hero-flow">
+            <span>感測器</span><b>→</b><span>資料交換</span><b>→</b
+            ><span>監控與歷史</span>
+          </div>
+          <p>看懂設備，串起資料、警報與維運。</p>
+        </div>
+      </div>
+      <section class="progress-card">
+        <h2 id="topic-1">FMCS 課程進度</h2>
+        <p id="progressLabel">0 / 12 週完成</p>
+        <progress
+          aria-label="12 週學習進度"
+          id="progress"
+          value="0"
+          max="12"
+        ></progress>
+        <p class="muted" id="storageNote">
+          完成狀態儲存在目前瀏覽器，不會上傳伺服器。
+        </p>
+        <p class="muted" id="legacyProgress"></p>
+      </section>
+      <section id="roadmap">
+        <p class="eyebrow">LEARNING PATH</p>
+        <h2 id="topic-2">12 週，從廠務設備走到整合驗收</h2>
+        <p class="muted">
+          每週 6 小時：理解觀念 → 看圖操作 → 完成練習。展開任一週開始。
+        </p>
+        <div class="path-stages">
+          <span>01–04 廠務與現場</span><span>05–08 通訊與採集</span
+          ><span>09–12 監控與交付</span>
+        </div>
+        <div id="lessons"></div>
+      </section>
+      <section id="sim">
+        <p class="eyebrow">LEARN BY DOING</p>
+        <h2 id="topic-3">FMCS 現場與監控實驗室</h2>
+        <p class="muted">
+          先預測結果，再操作按鈕。亮色路徑表示邏輯成立，狀態文字同步更新。
+        </p>
+        <div class="grid">
+          <div class="card lab" id="lampLab">
+            <h3>實驗 A｜按鈕控制指示燈</h3>
+            <p>DI X0 → PLC 邏輯 → DO Y0。常開接點閉合時線圈得電。</p>
+            <button class="button" id="lampBtn">按下 X0</button>
+            <p>
+              輸入 X0：<span id="x0">OFF</span>　輸出 Y0：<span
+                id="y0"
+                class="status"
+                >燈滅</span
+              >
+            </p>
+            <pre>|--[ X0 ]------------( Y0 )--|</pre>
+          </div>
+          <div class="card lab" id="motorLab">
+            <h3>實驗 B｜輸送帶到位停止</h3>
+            <p>Start 啟動保持；工件到位感測器 ON 時，輸送帶停止。</p>
+            <button class="button" id="start">Start</button>
+            <button class="button secondary" id="stop">Stop</button
+            ><label><input type="checkbox" id="sensor" /> 工件已到位</label>
+            <p>Motor：<span id="motor" class="status">OFF</span></p>
+            <pre>Motor = RunLatch AND NOT Sensor</pre>
+          </div>
+          <div class="card lab" id="tankLab">
+            <h3>實驗 C｜水箱液位與幫浦</h3>
+            <p>
+              簡化規則：液位低於 30% 啟動補水幫浦，達到 80%
+              停止。使用遲滯避免頻繁啟停。
+            </p>
+            <div class="sim">
+              <div class="tank">
+                <div id="water" class="water" style="height: 50%"></div>
+              </div>
+              <div>
+                <label
+                  >液位 <strong id="levelLabel">50%</strong
+                  ><input type="range" id="level" min="0" max="100" value="50"
+                /></label>
+                <p>幫浦：<span id="pump" class="status">OFF</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="muted">
+          安全提醒：以上僅為瀏覽器邏輯模擬，不可直接用於實體馬達、幫浦或安全控制。
+        </p>
+      </section>
+      <section id="quiz">
+        <h2 id="topic-4">FMCS 系統整合測驗</h2>
+        <p>作答後即時顯示解釋，重新整理可重新練習。</p>
+        <div id="questions"></div>
+        <p id="score" aria-live="polite"></p>
+      </section>
+      <section id="terms">
+        <h2 id="topic-5">FMCS 整合術語字典</h2>
+        <label for="search">輸入中英文術語</label
+        ><input
+          type="search"
+          id="search"
+          placeholder="搜尋 Tag、Quality、Modbus、警報..."
+          style="
+            width: 100%;
+            padding: 12px;
+            background: #142137;
+            border: 1px solid #64748b;
+            border-radius: 10px;
+            color: white;
+          "
+        />
+        <div id="dictionary" class="grid" style="margin-top: 15px"></div>
+      </section>
+      <section id="resources">
+        <h2 id="topic-6">FMCS 整合官方學習資源</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>PLC 基礎延伸｜OpenPLC</h3>
+            <a href="https://autonomylogic.com/" target="_blank" rel="noopener"
+              >PLC 模擬與開源平台</a
+            >
+          </div>
+          <div class="card">
+            <h3>Modbus</h3>
+            <a
+              href="https://www.modbus.org/modbus-specifications"
+              target="_blank"
+              rel="noopener"
+              >Modbus TCP／RTU 官方規格入口</a
+            >
+          </div>
+          <div class="card">
+            <h3>Microsoft .NET</h3>
+            <a
+              href="https://learn.microsoft.com/dotnet/"
+              target="_blank"
+              rel="noopener"
+              >C# / .NET 官方文件</a
+            >
+          </div>
+          <div class="card">
+            <h3>OPC Foundation</h3>
+            <a
+              href="https://reference.opcfoundation.org/specs/OPC-10000-4/7.11"
+              target="_blank"
+              rel="noopener"
+              >OPC UA 資料值、品質與時間戳記</a
+            >
+          </div>
+          <div class="card">
+            <h3>SQL Server</h3>
+            <a
+              href="https://learn.microsoft.com/en-us/sql/t-sql/data-types/datetime2-transact-sql"
+              target="_blank"
+              rel="noopener"
+              >歷史資料時間欄位｜datetime2</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <noscript
+      ><p>
+        請啟用 JavaScript
+        以顯示課程、測驗及互動實驗。學習進度只保存在本機瀏覽器。
+      </p></noscript
+    >
+    <footer>FMCS Academy · 自主學習專案 · 非設備安全認證課程</footer>
+    <script src="js/data/course-data.js?v=engineer1" defer></script>
+    <script src="js/models/learning-model.js?v=engineer1" defer></script>
+    <script src="js/models/simulation-model.js?v=engineer1" defer></script>
+    <script src="js/views/learning-view.js?v=engineer1" defer></script>
+    <script src="js/views/simulation-view.js?v=engineer1" defer></script>
+    <script
+      src="js/controllers/learning-controller.js?v=engineer1"
+      defer
+    ></script>
+    <script
+      src="js/controllers/simulation-controller.js?v=engineer1"
+      defer
+    ></script>
+    <script src="js/main.js?v=engineer1" defer></script>
+  </body>
+</html>

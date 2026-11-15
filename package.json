@@ -1,10 +1,10 @@
 {
   "name": "fmcs-academy",
   "private": true,
-  "version": "1.1.0",
-  "description": "繁體中文 FMCS 廠務監控與系統整合學習；網站無執行期套件。",
+  "version": "2.0.0",
+  "description": "FMCS 與 AVEVA 整合學習中心；靜態 MVC、七個單元與跨教材搜尋。",
   "scripts": {
-    "test": "node tests/models.cjs && node tests/interaction.cjs"
+    "test": "node tests/models.cjs && node tests/interaction.cjs && node tests/portal.cjs"
   },
   "devDependencies": {
     "jsdom": "29.0.1"

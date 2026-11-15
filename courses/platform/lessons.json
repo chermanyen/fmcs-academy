@@ -1,0 +1,221 @@
+[
+  {
+    "id": "start",
+    "group": "學習起點",
+    "title": "認識 FMCS 與學習環境",
+    "subtitle": "將 IT 經驗，轉成廠務監控能力。",
+    "intro": "FMCS 是廠務監控系統，將空調、電力、用水等設備資料集中顯示、告警與追蹤。你熟悉的資料庫、服務與網路，都是排錯的重要基礎。",
+    "steps": [
+      "確認測試主機為 Windows Server 2022，記錄 System Platform 2023 R2 SP1 P03 與 SQL Server 版本。",
+      "在獨立測試環境操作，先備份 Galaxy；記錄主機名稱、授權及登入權限。",
+      "開啟 System Platform IDE，確認可連接測試 Galaxy。",
+      "開啟 OCMC，找到 Log Viewer；確認 AVEVA Agent (Watchdog) 服務狀態。"
+    ],
+    "tip": "Galaxy 像專案資料庫；IDE 像 Visual Studio；AppEngine 像執行物件邏輯的服務。",
+    "trouble": "開始前無法連線？先記錄完整錯誤，再檢查 SQL 服務、主機解析、權限與 AVEVA 日誌。",
+    "question": "哪個工具用來編輯 Galaxy 物件？",
+    "options": [
+      "System Platform IDE",
+      "SQL Server Profiler",
+      "IIS Manager"
+    ],
+    "answer": 0,
+    "minutes": 15
+  },
+  {
+    "id": "galaxy",
+    "group": "平台基礎",
+    "title": "Galaxy、IDE 與部署架構",
+    "subtitle": "先看懂專案，再開始建立物件。",
+    "intro": "Galaxy 保存應用物件及設定，底層使用 SQL Server。WinPlatform 對應執行節點；AppEngine 承載物件執行；Area 用於組織設備與區域。",
+    "steps": [
+      "啟動 IDE，選擇測試 Galaxy 並開啟。",
+      "切換 Model、Deployment、Derivation 視圖，比較設備結構、部署位置與繼承關係。",
+      "在測試 Galaxy 找出 WinPlatform、AppEngine 與 Area。",
+      "記錄每個物件的 Host 與部署狀態，不要直接修改正式環境。"
+    ],
+    "tip": "Check-in 是將編輯提交回 Galaxy；Deploy 是將設定送至執行環境，兩者不同。",
+    "trouble": "找不到基底模板？檢查建立 Galaxy 時使用的 CAB；Blank 與 Default Galaxy 所含內容不同。",
+    "question": "哪個動作讓設定進入執行環境？",
+    "options": [
+      "Check-in",
+      "Deploy",
+      "搜尋"
+    ],
+    "answer": 1,
+    "minutes": 25
+  },
+  {
+    "id": "template",
+    "group": "物件與屬性",
+    "title": "建立 AHU_Template 與 AHU_001",
+    "subtitle": "用一份模板，維護一群空調設備。",
+    "intro": "AHU 是空氣處理機。Template 可類比 C# 類別，Instance 類比實體，Attribute 類比屬性。此 AHU 命名與欄位為教學設計，須由宇辰專案負責人確認正式規範。",
+    "steps": [
+      "從 $UserDefined 衍生模板，使用 IDE 允許的名稱 AHU_Template（模板可能以 $ 顯示）。",
+      "新增 SupplyTemp（Float）、RunStatus（Boolean）、Alarm（Boolean）。",
+      "SupplyTemp 設工程單位 °C；此階段只做測試值，不連現場 I/O。",
+      "Save、Check-in，從模板建立 AHU_001，指派測試 Area 與 AppEngine。",
+      "Deploy 後用 Object Viewer 觀察 AHU_001.SupplyTemp；修改模板前先評估衍生物件影響。"
+    ],
+    "tip": "AHU_001.SupplyTemp 是物件名稱加屬性名稱，類似物件的屬性存取。",
+    "trouble": "無法編輯？檢查是否已 Check-out、權限是否足夠、屬性是否由模板鎖定。",
+    "question": "同類設備應共用什麼以利維護？",
+    "options": [
+      "各自獨立腳本",
+      "同一模板",
+      "相同 IP"
+    ],
+    "answer": 1,
+    "minutes": 40
+  },
+  {
+    "id": "plc",
+    "group": "PLC 通訊",
+    "title": "建立單一 PLC 連線",
+    "subtitle": "從一筆暫存器，追到一個畫面數值。",
+    "intro": "依內部教材建立 ModRSsim2 → OI.MBTCP.1 → DDESuiteLinkClient → Temperature001.PV 的測試鏈路。",
+    "steps": [
+      "啟動 ModRSsim2，選 MODBUS TCP/IP、port 502；Holding Register 400001 設 2048。",
+      "OCMC → OI Server Manager → Modicon - MBTCP → OI.MBTCP.1，設定 TCPIP_PORT 與模擬器位址。",
+      "新增 Device Group Topic2，Update Interval 1000 ms；Device Item Temperature001.PV 對應 400001。",
+      "由 $DDESuiteLinkClient 建立測試 Client，Server node 127.0.0.1、Server name MBTCP、Protocol SuiteLink；新增 Topic2。",
+      "建立 $UserDefined 實例 Temperature001，新增 Float 屬性 PV 並啟用 I/O。",
+      "IO Devices 視圖將物件連到 Client 的 Topic2；Check-in，先部署 Client，再部署 Temperature001。",
+      "Object Viewer 檢查 PV = 2048、Quality = C0:Good；改模擬值，再觀察是否同步。"
+    ],
+    "tip": "127.0.0.1 只適用本機測試；Device Group 與 Topic 名稱必須相符。400001 的地址表示法須依 Driver 驗證。",
+    "trouble": "Quality = Bad：依序檢查模擬器、port、Driver Activate、Topic2、Item Reference 與日誌。",
+    "question": "OCMC Device Group 應與哪個名稱相同？",
+    "options": [
+      "Galaxy Topic",
+      "Windows 帳號",
+      "Graphic 名稱"
+    ],
+    "answer": 0,
+    "minutes": 45
+  },
+  {
+    "id": "redundancy",
+    "group": "PLC 通訊",
+    "title": "雙 Driver 備援",
+    "subtitle": "分清楚「已連線」與「正在使用」。",
+    "intro": "內部範例透過兩個 OI Server instance 與 RedundantDIObject 切換資料來源。同機雙 Driver 是通訊路徑練習，不能代表整台主機故障時仍可運作。",
+    "steps": [
+      "建立 OI.MBTCP_Back.1，複製 port、Topic2 與 Device Item 設定並 Activate。",
+      "建立 DDESuiteLinkClient_002_P 與 _002_B；Server name 分別 MBTCP 與 MBTCP_Back。",
+      "建立 RedundantDIObject_001，Primary／Backup DI source 指向上述完整實例名稱。",
+      "Scan Group → Copy Common Scan Groups，選 Topic2；先部署兩個 Client，再部署備援物件。",
+      "Undeploy Temperature001，重新連結 RedundantDIObject_001 的 Topic2，再 Deploy。",
+      "Object Viewer 觀察 DISourceActive、DISourceStandby；在測試環境觸發 ForceFailoverCmd，確認 Active 改變與 PV 品質。"
+    ],
+    "tip": "Connected 表示通道連上；DISourceActive 才表示目前採用哪個來源。",
+    "trouble": "B 端 Disconnected：檢查 MBTCP_Back 名稱、Activate、Topic2、節點授權與 SuiteLink 加密錯誤。不要關閉安全設定來繞過錯誤。",
+    "question": "哪個屬性可判斷目前資料來源？",
+    "options": [
+      "DISourceActive",
+      "PV",
+      "Description"
+    ],
+    "answer": 0,
+    "minutes": 40
+  },
+  {
+    "id": "script",
+    "group": "腳本與維運",
+    "title": "自動重連與日誌",
+    "subtitle": "讓故障能重現，也能被驗證。",
+    "intro": "此腳本取自內部教材。ConnectionStatus 的數值對應與 Reconnect 屬性，應先於目前版本 Object Viewer 與說明文件核對。",
+    "steps": [
+      "在測試 _002_P 新增 Reconnect 腳本。",
+      "教材條件 Me.ConnectionStatus <> 2；先確認 2 在本機代表 Connected。",
+      "Trigger type WhileTrue，Trigger period 00:00:05，Execution type Execute。",
+      "程式內容：Me.Reconnect = true; 及 LogMessage(\"=====Reconnecting=====\");。",
+      "Check-in、Deploy；測試 Driver Deactivate，觀察狀態與每五秒日誌。",
+      "重新 Activate，確認 Connected、Good 品質與 PV 更新；持續重連則回查根因。"
+    ],
+    "tip": "WhileTrue 是條件成立時週期執行；不等同資料變更事件。",
+    "trouble": "只有日誌卻未恢復？確認 Driver 已啟動、網路可達、授權正常；重連腳本無法修正錯誤位址或安全設定。",
+    "question": "重連成功應同時驗證什麼？",
+    "options": [
+      "只有日誌",
+      "連線、品質與數值更新",
+      "視窗顏色"
+    ],
+    "answer": 1,
+    "minutes": 30
+  },
+  {
+    "id": "intouch",
+    "group": "圖控畫面",
+    "title": "InTouch 狀態面板",
+    "subtitle": "讓操作員一眼理解 Primary 與 Backup。",
+    "intro": "依內部教材製作 Industrial Graphic 狀態燈與切換按鈕；本網站的互動面板為模擬，沒有連接公司設備。",
+    "steps": [
+      "Visualization 新增 Graphic，畫出 PLC_002、P／B 指示燈、State 文字與 Redundant 按鈕。",
+      "燈號用 Fill Style Boolean，判斷 DISourceActive 是否等於對應 Client 的完整名稱。",
+      "Value Display 綁定狀態屬性；教材此處為推測，須確認數值轉文字方式。",
+      "按鈕 Action Script 建議設定 RedundantDIObject_001.ForceFailoverCmd = true;，確認權限與本機屬性後才測試。",
+      "Check-in Graphic，在測試 InTouch 視窗放入圖形；內部範例入口為 TestArea > CpuMonitor。",
+      "執行並驗證燈號、狀態文字、切換結果及斷線品質，避免把紅綠燈當作唯一判斷。"
+    ],
+    "tip": "Industrial Graphic 是可重用畫面元件；動畫是資料與外觀之間的綁定。",
+    "trouble": "畫面值不更新？先檢查物件參照、部署狀態與資料品質，再查 Graphic 綁定。",
+    "question": "綠燈代表什麼（此教材設計）？",
+    "options": [
+      "目前 Active 來源",
+      "保證 PLC 正常",
+      "歷史資料已寫入"
+    ],
+    "answer": 0,
+    "minutes": 40
+  },
+  {
+    "id": "alarm",
+    "group": "告警與歷史",
+    "title": "Alarm、Trend 與 History",
+    "subtitle": "數值、品質、告警要一起看。",
+    "intro": "PV 是目前值；Alarm 是符合條件時產生的事件；History 是歷史紀錄。以下為教學練習，告警門檻不代表現場設計。",
+    "steps": [
+      "在測試 PV 啟用 Limit alarms，教材範例 LoLo 10、Lo 25、Hi 75、HiHi 90。",
+      "先將模擬值設 50，再提高至 80，觀察 Hi；提高至 95，觀察 HiHi。",
+      "觀察觸發、確認與恢復的差異；Ack 不代表製程已恢復正常。",
+      "啟用 History 前確認 Historian 服務、連線與授權；設定記錄策略後部署。",
+      "以固定間隔改變模擬值，在 Trend 比對時間戳、工程單位與資料品質。"
+    ],
+    "tip": "2048 是連線驗證原始值；若直接套 90 的上限會立即觸發告警，應先完成縮放與門檻設計。",
+    "trouble": "無歷史值？從物件品質、History 設定、Historian 服務、時間同步與授權逐一檢查。",
+    "question": "Ack 是否代表數值已恢復？",
+    "options": [
+      "是",
+      "否",
+      "一定會停止記錄"
+    ],
+    "answer": 1,
+    "minutes": 30
+  },
+  {
+    "id": "trouble",
+    "group": "維運工具箱",
+    "title": "故障排除與交接",
+    "subtitle": "沿著資料流找出第一個異常點。",
+    "intro": "建立可重現的問題紀錄：時間、版本、物件、錯誤訊息、預期結果、實際結果與已做動作。",
+    "steps": [
+      "PV 不動：先改模擬器，確認 OCMC 更新，再查 DI、物件品質、畫面參照。",
+      "Watchdog 啟動逾時：查 Windows 事件 7000／7009 及 AVEVA 日誌，記錄相依服務狀態。",
+      "唯讀查看 Get-Service -Name Watchdog_Service，不以 Running 當作整個系統正常的證明。",
+      "改名或重新指派 I/O 前依內部流程 Undeploy；改後 Save、Check-in、Deploy。",
+      "交接前備份 Galaxy、記錄版本與命名，保留故障前後日誌與驗證結果。"
+    ],
+    "tip": "Log Viewer 提供 AVEVA 診斷訊息；Windows Event Viewer 補充作業系統及服務事件。",
+    "trouble": "本教材不提供未經確認的正式主機位址、帳密或寫入現場設備操作。內部 SOP 仍需主管審核。",
+    "question": "排錯最適合從哪裡開始？",
+    "options": [
+      "隨機重裝",
+      "第一個異常的資料節點",
+      "直接關閉防火牆"
+    ],
+    "answer": 1,
+    "minutes": 20
+  }
+]

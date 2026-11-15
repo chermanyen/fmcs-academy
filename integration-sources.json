@@ -1,0 +1,32 @@
+[
+  {
+    "source": "ahu-fmcs-jason-learning",
+    "revision": "cb47a695b3d572458f43b3c42e9b917439b1f46b",
+    "imported": "2026-11-15"
+  },
+  {
+    "source": "aveva-mis-learning",
+    "revision": "3821231ca17f528184a0b5e1799e8f4d01d08258",
+    "imported": "2026-11-15"
+  },
+  {
+    "source": "aveva-modbus-redundancy-lab",
+    "revision": "bade10d60c7dfdae71afc18ee804547eebdb1d09",
+    "imported": "2026-11-15"
+  },
+  {
+    "source": "fmcs-learning",
+    "revision": "d51af35cc1b285cb8563687480e02a2d041a6531",
+    "imported": "2026-11-15"
+  },
+  {
+    "source": "fmcs-yuchen-academy",
+    "revision": "c97cb7cb31ecda3f0cbd680127ac3917eec973a8",
+    "imported": "2026-11-15"
+  },
+  {
+    "source": "yuchen-fmcs-academy-jason",
+    "revision": "91ae65992c4333d07efe799458cd31aa45de570c",
+    "imported": "2026-11-15"
+  }
+]
